@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GP. ΓΚΟΥΓΚΟΥΔΗΣ — gpkougkoudis.gr
 
-## Getting Started
+Bilingual (EL / EN) luxury showcase website for the **Αφοί Π. Γκουγκούδη**
+jewelry store in Petroupoli, Athens. No online checkout — every page funnels
+visitors to **call**, **WhatsApp**, **visit the store** or **book an
+appointment**.
 
-First, run the development server:
+The owners run the entire site from a Greek-language Sanity Studio mounted at
+`/studio`.
+
+## Stack
+
+| Layer       | Tech                                                              |
+| ----------- | ----------------------------------------------------------------- |
+| Framework   | Next.js (App Router) + React + TypeScript                         |
+| Styling     | Tailwind CSS v4 (custom design tokens, no extra config file)      |
+| i18n        | `next-intl` with locale-prefixed routes (`/el/*`, `/en/*`)        |
+| CMS         | Sanity v3 Studio mounted at `/studio`                             |
+| Animations  | Framer Motion (subtle, 400–600 ms)                                |
+| Forms       | React Hook Form + Zod + Resend (Email API)                        |
+| Analytics   | GA4 + Microsoft Clarity (loaded only after cookie consent)        |
+| Hosting     | Vercel                                                            |
+
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local        # fill in optional Sanity / Resend keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` — you will be redirected to `/el`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The site **renders without a Sanity dataset**: it falls back to placeholder
+content from `src/sanity/fallback.ts`. Once you set
+`NEXT_PUBLIC_SANITY_PROJECT_ID` it switches to live content.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Sanity Studio
 
-## Learn More
+```
+/studio
+```
 
-To learn more about Next.js, take a look at the following resources:
+Schemas live in `src/sanity/schemas/*`. Studio configuration is in
+`sanity.config.ts`. Owners log in with their Google account once the
+developer adds them as **Editor** members of the Sanity project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To deploy the schema changes to a fresh Sanity project:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npx sanity@latest init       # only once, to create the project
+npx sanity deploy            # if you want to host the studio at gpkougkoudis.sanity.studio as well
+```
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+  app/                       # App Router
+    [locale]/                # all public pages (el | en)
+      page.tsx               # Home
+      collections/           # Hub + dynamic [category] / [product]
+      services/              # Hub + 5 sub-pages
+      wedding/               # Wedding & Engagement landing
+      about/  reviews/  contact/  faq/  privacy/  cookies/  terms/
+    studio/[[...tool]]/      # Sanity Studio at /studio
+    api/contact/route.ts     # Resend-powered email endpoint
+    sitemap.ts               # XML sitemap (incl. EL/EN alternates)
+    robots.ts
+  components/
+    layout/                  # Header, Footer, CookieBanner, Analytics
+    home/                    # Hero, FeaturedCollections, etc.
+    product/                 # ProductCard, ProductFilters, ProductGallery, ...
+    services/                # ServiceLayout
+    forms/                   # ContactForm, ServiceLeadForm, AppointmentForm
+    seo/                     # JsonLd helpers
+    ui/                      # Button, Container, Input, Eyebrow, SanityImage
+  i18n/                      # next-intl routing + navigation
+  messages/                  # el.json / en.json
+  sanity/
+    schemas/                 # All schemas (with localized helpers)
+    queries.ts               # GROQ queries
+    fetch.ts                 # Server fetch with fallback to placeholder data
+    fallback.ts              # Placeholder content for dev / pre-CMS
+    structure.ts             # Friendly Greek sidebar for the Studio
+  lib/                       # utils, site constants
+docs/
+  OWNER_GUIDE_GR.md          # Greek owner cheat sheet
+  LAUNCH_CHECKLIST.md        # Pre / post launch checklist
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Conversion goals (per page)
+
+| Page        | Macro goal                            |
+| ----------- | ------------------------------------- |
+| Home        | Visit / call / WhatsApp                |
+| Catalog     | Open a product                         |
+| Product     | WhatsApp / reservation / call          |
+| Services    | Lead form / call                       |
+| Wedding     | Book appointment                       |
+| About       | Trust → push to catalog/contact        |
+| Reviews     | Trust → contact                        |
+| Contact     | Call / WhatsApp / directions / form    |
+
+All these are tracked via `data-event="..."` attributes that the
+`Analytics.tsx` component forwards to GA4 (after consent).
+
+## Build & deploy
+
+```bash
+npm run build
+npm run start
+```
+
+Recommended host: **Vercel** (one-click deploy, free for this scale).
+
+See [`docs/LAUNCH_CHECKLIST.md`](docs/LAUNCH_CHECKLIST.md) for the full
+go-live checklist.
+
+## License
+
+All rights reserved — © {year} Αφοί Π. Γκουγκούδη.

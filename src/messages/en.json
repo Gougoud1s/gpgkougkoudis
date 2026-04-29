@@ -1,0 +1,234 @@
+{
+  "site": {
+    "name": "GP. KOUGKOUDIS",
+    "tagline": "Kougkoudis Brothers Jewelry",
+    "description": "Curated 9, 14 and 18 karat gold jewelry collections with precious and semi-precious stones, in Petroupoli, Athens.",
+    "address": "Sirrakou 85-87, Petroupoli 131 23",
+    "city": "Petroupoli, Athens",
+    "phoneDisplay": "+30 210 502 3076",
+    "phoneTel": "+302105023076",
+    "whatsapp": "+302105023076",
+    "email": "info@gpkougkoudis.gr"
+  },
+  "nav": {
+    "home": "Home",
+    "collections": "Collections",
+    "services": "Services",
+    "wedding": "Wedding & Engagement",
+    "about": "Our Story",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "callUs": "Call us",
+    "whatsapp": "WhatsApp",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "common": {
+    "viewMore": "View more",
+    "explore": "Explore",
+    "discover": "Discover",
+    "contactUs": "Contact us",
+    "bookAppointment": "Book an appointment",
+    "requestQuote": "Request a quote",
+    "askUs": "Ask us",
+    "reserveForViewing": "Reserve for viewing",
+    "viewCollection": "View collection",
+    "allCollections": "All collections",
+    "ourServices": "Our services",
+    "ourStory": "Our story",
+    "readMore": "Read more",
+    "send": "Send",
+    "sending": "Sending...",
+    "thankYou": "Thank you! We'll be in touch shortly.",
+    "errorMessage": "Something went wrong. Please try again or call us.",
+    "openingHours": "Opening hours",
+    "getDirections": "Get directions",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "back": "Back",
+    "filters": "Filters",
+    "clearFilters": "Clear",
+    "noResults": "No results found.",
+    "priceOnRequest": "Price on request",
+    "availableInStore": "Available in store",
+    "shareOn": "Share",
+    "follow": "Follow us"
+  },
+  "home": {
+    "heroEyebrow": "In Petroupoli since 1985",
+    "heroTitle": "Handcrafted elegance,\nuncompromising quality.",
+    "heroSubtitle": "Curated collections of 9, 14 and 18 karat gold jewelry with precious and semi-precious stones — for every meaningful moment.",
+    "heroCtaPrimary": "Explore collections",
+    "heroCtaSecondary": "Contact us",
+    "trustGoogleRating": "4.9 stars on Google",
+    "trustReviewCount": "123 reviews",
+    "trustLocation": "Petroupoli, Athens",
+    "featuredCollectionsEyebrow": "Collections",
+    "featuredCollectionsTitle": "Featured pieces",
+    "featuredCollectionsSubtitle": "A selection of our most beloved designs.",
+    "servicesEyebrow": "Services",
+    "servicesTitle": "Beyond the showcase",
+    "servicesSubtitle": "Bespoke design, repairs, appraisals and gold buying — with the expertise of three generations.",
+    "storyEyebrow": "Our story",
+    "storyTitle": "A family devoted to fine jewelry",
+    "storySubtitle": "The Kougkoudis Brothers continue the family tradition in the heart of Petroupoli, with the same love for the craft.",
+    "storyCta": "Learn more",
+    "reviewsEyebrow": "Reviews",
+    "reviewsTitle": "What our clients say",
+    "reviewsSubtitle": "4.9 stars from 123 reviews on Google.",
+    "visitEyebrow": "Visit us",
+    "visitTitle": "We look forward to welcoming you in Petroupoli",
+    "visitDescription": "Come to the store to see our collection in person. We welcome you with a smile and no obligation."
+  },
+  "collections": {
+    "title": "Collections",
+    "subtitle": "From timeless classics to modern designs.",
+    "categories": {
+      "rings": "Rings",
+      "weddingEngagement": "Wedding & Engagement",
+      "necklaces": "Necklaces",
+      "earrings": "Earrings",
+      "bracelets": "Bracelets",
+      "religious": "Crosses & Religious",
+      "kids": "Children"
+    },
+    "filterMaterial": "Material",
+    "filterKarat": "Karat",
+    "filterStone": "Stone",
+    "filterPrice": "Price",
+    "filterOccasion": "Occasion",
+    "materials": {
+      "gold": "Gold",
+      "whiteGold": "White Gold",
+      "roseGold": "Rose Gold",
+      "silver": "Silver",
+      "platinum": "Platinum"
+    }
+  },
+  "product": {
+    "specifications": "Specifications",
+    "material": "Material",
+    "karat": "Karat",
+    "stone": "Stone",
+    "weight": "Weight",
+    "dimensions": "Dimensions",
+    "sku": "SKU",
+    "askOnWhatsapp": "Ask on WhatsApp",
+    "reserveForViewing": "Reserve for viewing",
+    "callUs": "Call us",
+    "relatedItems": "Related pieces"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "With passion for jewelry and dedication to our clients.",
+    "customDesign": {
+      "title": "Custom design",
+      "tagline": "The jewel of your dreams, made just for you.",
+      "description": "We design and craft unique jewelry from your ideas, sketches or reference photos."
+    },
+    "repairs": {
+      "title": "Repairs & Restoration",
+      "tagline": "We bring your beloved pieces back to life.",
+      "description": "From soldering and resizing to full restoration of heirloom pieces."
+    },
+    "engraving": {
+      "title": "Engraving",
+      "tagline": "Make every piece even more personal.",
+      "description": "Machine and hand engraving of names, dates and symbols."
+    },
+    "appraisals": {
+      "title": "Appraisals",
+      "tagline": "Official appraisals for insurance and inheritance.",
+      "description": "We provide professional appraisals from experienced goldsmiths with an official certificate."
+    },
+    "buyGold": {
+      "title": "Buy Gold",
+      "tagline": "Instant, transparent valuation.",
+      "description": "We buy gold jewelry and coins with modern weighing equipment and full transparency."
+    },
+    "process": "The process",
+    "step1": "Get in touch",
+    "step2": "Meeting",
+    "step3": "Crafting",
+    "step4": "Delivery"
+  },
+  "wedding": {
+    "title": "Wedding & Engagement",
+    "eyebrow": "For the most important moment",
+    "heroSubtitle": "Choose or design with us the wedding bands and engagement ring that will last a lifetime.",
+    "ctaBookViewing": "Book a private viewing"
+  },
+  "about": {
+    "title": "Our Story",
+    "eyebrow": "Since 1985",
+    "subtitle": "Three generations of goldsmiths in Petroupoli.",
+    "missionTitle": "Our mission",
+    "missionText": "To offer you jewelry of timeless beauty, with the same attention to detail and respect for every client that has defined us for decades."
+  },
+  "reviews": {
+    "title": "Client reviews",
+    "subtitle": "4.9 stars from 123 reviews on Google.",
+    "leaveReview": "Leave a review on Google"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We're here for any question. Reach out the way that suits you best.",
+    "addressLabel": "Address",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "hoursLabel": "Opening hours",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "subject": "Subject",
+      "message": "Message",
+      "consent": "I agree to the Privacy Policy.",
+      "submit": "Send message"
+    },
+    "hours": {
+      "mondayFriday": "Monday – Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "closed": "Closed"
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Answers to the most common questions."
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "shop": "Shop",
+    "company": "Company",
+    "legal": "Legal",
+    "follow": "Follow us",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies Policy",
+    "terms": "Terms of Use",
+    "sitemap": "Sitemap"
+  },
+  "cookies": {
+    "title": "We respect your privacy",
+    "message": "We use cookies to improve your experience and gather anonymous statistics. You can accept or decline.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "preferences": "Preferences"
+  },
+  "forms": {
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "budget": "Budget",
+    "deadline": "Deadline",
+    "occasion": "Occasion",
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "consent": "I have read and accept the Privacy Policy."
+  },
+  "metadata": {
+    "homeTitle": "GP. KOUGKOUDIS — Jewelry store in Petroupoli, Athens",
+    "homeDescription": "Gold and white-gold jewelry in 9, 14 and 18 karat with precious stones. Repairs, custom design and gold buying in Petroupoli, Athens."
+  }
+}

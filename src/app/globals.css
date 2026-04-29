@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  GP. ΓΚΟΥΓΚΟΥΔΗΣ — design tokens
+  Palette:  Charcoal #1C1917 · Champagne Gold #CA8A04 · Warm Off-white #FAFAF9 · Deep ink #0C0A09
+  Type:     Cormorant (display, serif) · Montserrat (body, sans)
+*/
+
+@theme {
+  --color-ink: #0C0A09;
+  --color-charcoal: #1C1917;
+  --color-charcoal-2: #292524;
+  --color-stone: #44403C;
+  --color-stone-2: #78716C;
+  --color-cream: #FAFAF9;
+  --color-cream-2: #F5F5F4;
+  --color-line: #E7E5E4;
+
+  --color-gold: #CA8A04;
+  --color-gold-light: #EAB308;
+  --color-gold-dark: #A16207;
+  --color-gold-soft: #FEF3C7;
+
+  --color-background: var(--color-cream);
+  --color-foreground: var(--color-ink);
+  --color-muted: var(--color-stone);
+  --color-muted-foreground: var(--color-stone-2);
+  --color-primary: var(--color-charcoal);
+  --color-primary-foreground: var(--color-cream);
+  --color-accent: var(--color-gold);
+  --color-accent-foreground: var(--color-cream);
+  --color-border: var(--color-line);
+
+  --font-display: var(--font-cormorant), "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: var(--font-montserrat), "Montserrat", system-ui, -apple-system, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgba(28, 25, 23, 0.04), 0 8px 24px -12px rgba(28, 25, 23, 0.12);
+  --shadow-lift: 0 2px 4px rgba(28, 25, 23, 0.06), 0 18px 40px -16px rgba(28, 25, 23, 0.18);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-line);
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    color: var(--color-charcoal);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 3vw + 1rem, 3.5rem);
+    font-weight: 400;
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 2vw + 0.75rem, 2.25rem);
+    font-weight: 500;
+  }
+
+  h4 {
+    font-size: clamp(1.25rem, 1vw + 0.85rem, 1.5rem);
+    font-weight: 500;
+  }
+
+  p {
+    color: var(--color-stone);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .container-page {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    max-width: 80rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold-dark);
+  }
+
+  .display-serif {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .gold-rule {
+    height: 1px;
+    width: 3rem;
+    background: var(--color-gold);
+    display: inline-block;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .smooth {
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .luxe-shadow {
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
