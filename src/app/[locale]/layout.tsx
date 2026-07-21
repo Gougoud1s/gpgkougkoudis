@@ -8,7 +8,11 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Analytics } from "@/components/layout/Analytics";
 import { LocalBusinessJsonLd } from "@/components/seo/JsonLd";
 import { routing, type Locale } from "@/i18n/routing";
-import { SITE } from "@/lib/site";
+import { getHomepage, getSiteSettings } from "@/sanity/fetch";
+import { loc } from "@/sanity/types";
+
+// Published Studio edits are intentionally read on every request.
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -20,28 +24,36 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const [settings, homepage] = await Promise.all([getSiteSettings(), getHomepage()]);
   const isEn = locale === "en";
+  const url = settings.siteUrl || "http://localhost:3000";
+  const brand = loc(settings.brand, locale);
+  const description = loc(settings.tagline, locale);
   return {
-    title: isEn
-      ? "GP. KOUGKOUDIS — Jewelry store in Petroupoli, Athens"
-      : "GP. ΓΚΟΥΓΚΟΥΔΗΣ — Κοσμηματοπωλείο στην Πετρούπολη, Αθήνα",
-    description: isEn
-      ? "Curated 9, 14 and 18 karat gold jewelry, repairs, custom design, and gold buying in Petroupoli, Athens."
-      : "Χρυσά και λευκόχρυσα κοσμήματα 9, 14, 18 καρατίων, επισκευές, σχεδιασμός κατά παραγγελία και αγορά χρυσού στην Πετρούπολη Αθήνας.",
+    title: `${brand} — ${description}`,
+    description,
     alternates: {
-      canonical: `${SITE.url}/${locale}`,
+      canonical: `${url}/${locale}`,
       languages: {
-        el: `${SITE.url}/el`,
-        en: `${SITE.url}/en`,
-        "x-default": `${SITE.url}/el`,
+        el: `${url}/el`,
+        en: `${url}/en`,
+        "x-default": `${url}/el`,
       },
     },
     openGraph: {
       type: "website",
-      title: SITE.brand,
-      url: `${SITE.url}/${locale}`,
+      title: brand,
+      description,
+      url: `${url}/${locale}`,
       locale: isEn ? "en_GR" : "el_GR",
-      siteName: SITE.brand,
+      siteName: brand,
+      images: [homepage.heroImage?.asset?.url || ""].filter(Boolean),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: brand,
+      description,
+      images: [homepage.heroImage?.asset?.url || ""].filter(Boolean),
     },
   };
 }
@@ -57,18 +69,18 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   setRequestLocale(locale);
-  const messages = await getMessages();
+  const [messages, settings] = await Promise.all([getMessages(), getSiteSettings()]);
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <Header />
+      <Header settings={settings} />
       <main id="main" className="flex-1">
         {children}
       </main>
-      <Footer />
+      <Footer settings={settings} />
       <CookieBanner />
       <Analytics />
-      <LocalBusinessJsonLd locale={locale} />
+      <LocalBusinessJsonLd locale={locale} settings={settings} />
     </NextIntlClientProvider>
   );
 }

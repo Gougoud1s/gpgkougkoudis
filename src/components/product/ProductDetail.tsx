@@ -16,13 +16,21 @@ export function ProductDetail({
   product,
   categorySlug,
   categoryTitle,
+  phone,
+  whatsapp,
+  address,
 }: {
   product: Product;
   categorySlug: string;
   categoryTitle: string;
+  phone: string;
+  whatsapp: string;
+  address: string;
 }) {
   const locale = useLocale() as L;
   const t = useTranslations("product");
+  const tc = useTranslations("common");
+  const td = useTranslations("dynamic");
   const [showReservation, setShowReservation] = useState(false);
 
   return (
@@ -40,9 +48,7 @@ export function ProductDetail({
           <div className="mt-6 flex items-baseline gap-3">
             <p className="display-serif text-3xl text-charcoal">
               {product.priceOnRequest || !product.price
-                ? locale === "en"
-                  ? "Price on request"
-                  : "Τιμή κατόπιν αιτήματος"
+                ? tc("priceOnRequest")
                 : formatPriceEUR(product.price)}
             </p>
             {product.sku && (
@@ -54,15 +60,13 @@ export function ProductDetail({
 
           {product.availableInStore && (
             <a
-              href={mapsLink()}
+              href={mapsLink(address)}
               target="_blank"
               rel="noreferrer"
               className="mt-4 inline-flex items-center gap-2 text-sm bg-gold-soft/40 px-3 py-2 rounded-full text-gold-dark cursor-pointer hover:bg-gold-soft/70 smooth"
             >
               <Check className="size-4" aria-hidden="true" />
-              {locale === "en"
-                ? "Available in store · Petroupoli"
-                : "Διαθέσιμο στο κατάστημα · Πετρούπολη"}
+              {tc("availableInStore")} · {address}
               <MapPin className="size-3.5 ml-1" aria-hidden="true" />
             </a>
           )}
@@ -78,14 +82,14 @@ export function ProductDetail({
             {product.material && (
               <Spec
                 label={t("material")}
-                value={materialLabel(product.material, locale)}
+                value={td(`materials.${product.material}` as never)}
               />
             )}
             {product.karat && (
               <Spec label={t("karat")} value={`${product.karat}K`} />
             )}
             {product.stone && (
-              <Spec label={t("stone")} value={stoneLabel(product.stone, locale)} />
+              <Spec label={t("stone")} value={td(`stones.${product.stone}` as never)} />
             )}
             {product.weight && (
               <Spec label={t("weight")} value={`${product.weight} g`} />
@@ -99,14 +103,14 @@ export function ProductDetail({
             productTitle={loc(product.title, locale)}
             productSku={product.sku}
             onReserveClick={() => setShowReservation(true)}
+            phone={phone}
+            whatsapp={whatsapp}
           />
 
           {showReservation && (
             <div className="mt-10 p-6 bg-cream-2/60 border border-line rounded-sm">
               <h3 className="display-serif text-2xl mb-4">
-                {locale === "en"
-                  ? "Reserve this piece for viewing"
-                  : "Κράτηση για δοκιμή στο κατάστημα"}
+                {t("reserveForViewing")}
               </h3>
               <ReservationForm
                 productTitle={loc(product.title, locale)}
@@ -147,29 +151,4 @@ function Spec({ label, value }: { label: string; value: string }) {
       <dd className="text-charcoal">{value}</dd>
     </div>
   );
-}
-
-function materialLabel(v: string, locale: L) {
-  const map: Record<string, [string, string]> = {
-    gold: ["Χρυσός", "Gold"],
-    "white-gold": ["Λευκόχρυσος", "White Gold"],
-    "rose-gold": ["Ροζ Χρυσός", "Rose Gold"],
-    silver: ["Ασήμι", "Silver"],
-    platinum: ["Πλατίνα", "Platinum"],
-  };
-  return map[v]?.[locale === "en" ? 1 : 0] ?? v;
-}
-
-function stoneLabel(v: string, locale: L) {
-  const map: Record<string, [string, string]> = {
-    diamond: ["Διαμάντι", "Diamond"],
-    sapphire: ["Ζαφείρι", "Sapphire"],
-    ruby: ["Ρουμπίνι", "Ruby"],
-    emerald: ["Σμαράγδι", "Emerald"],
-    pearl: ["Μαργαριτάρι", "Pearl"],
-    zircon: ["Ζιργκόν", "Zircon"],
-    other: ["Άλλο", "Other"],
-    none: ["Χωρίς πέτρα", "No stone"],
-  };
-  return map[v]?.[locale === "en" ? 1 : 0] ?? v;
 }

@@ -5,6 +5,7 @@ import { FaqJsonLd } from "@/components/seo/JsonLd";
 import { getFaqs } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
 import type { Locale } from "@/i18n/routing";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -13,7 +14,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "faq" });
-  return { title: t("title"), description: t("subtitle") };
+  return localizedMetadata({ locale, path: "faq", title: t("title"), description: t("subtitle") });
 }
 
 export default async function FaqPage({

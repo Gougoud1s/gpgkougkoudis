@@ -6,11 +6,18 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
 import { mapsDirectionsLink, telLink, whatsappLink } from "@/lib/utils";
-import { SITE } from "@/lib/site";
+import { loc, type Locale, type SiteSettings } from "@/sanity/types";
+import { useLocale } from "next-intl";
 
-export function VisitUs() {
+export function VisitUs({ settings }: { settings?: SiteSettings }) {
   const t = useTranslations("home");
   const tContact = useTranslations("contact");
+  const td = useTranslations("dynamic");
+  const locale = useLocale() as Locale;
+  const address = loc(settings?.address, locale);
+  const phoneDisplay = settings?.phoneDisplay || "";
+  const phoneTel = settings?.phoneTel || "";
+  const whatsapp = settings?.whatsapp || "";
 
   return (
     <section className="py-24 md:py-32 bg-cream-2/40">
@@ -33,9 +40,7 @@ export function VisitUs() {
                     {tContact("addressLabel")}
                   </dt>
                   <dd className="text-charcoal mt-1">
-                    Σιρράκου 85-87
-                    <br />
-                    Πετρούπολη 131 23, Αττική
+                    {address.split("\n").map((line, index) => <span key={index}>{line}{index < address.split("\n").length - 1 && <br />}</span>)}
                   </dd>
                 </div>
               </div>
@@ -59,14 +64,14 @@ export function VisitUs() {
             </dl>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <a href={telLink(SITE.phoneTel)} data-event="visit-call">
+              <a href={telLink(phoneTel)} data-event="visit-call">
                 <Button variant="primary" size="md">
                   <Phone className="size-4" aria-hidden="true" />
-                  {SITE.phoneDisplay}
+                  {phoneDisplay}
                 </Button>
               </a>
               <a
-                href={whatsappLink(undefined, SITE.whatsappNumber)}
+                href={whatsappLink(undefined, whatsapp)}
                 target="_blank"
                 rel="noreferrer"
                 data-event="visit-whatsapp"
@@ -77,14 +82,14 @@ export function VisitUs() {
                 </Button>
               </a>
               <a
-                href={mapsDirectionsLink()}
+                href={mapsDirectionsLink(address.replace(/\n/g, ", "))}
                 target="_blank"
                 rel="noreferrer"
                 data-event="visit-directions"
               >
                 <Button variant="outline" size="md">
                   <Navigation className="size-4" aria-hidden="true" />
-                  Οδηγίες
+                  {td("directions")}
                 </Button>
               </a>
             </div>
@@ -92,8 +97,8 @@ export function VisitUs() {
 
           <div className="aspect-[4/5] lg:aspect-auto min-h-80 rounded-sm overflow-hidden border border-line bg-cream-2">
             <iframe
-              title="Google Map: GP. ΓΚΟΥΓΚΟΥΔΗΣ"
-              src="https://www.google.com/maps?q=Sirrakou+85-87,+Petroupoli+131+23,+Greece&output=embed"
+              title={td("mapTitle")}
+              src={settings?.mapEmbedUrl}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full"

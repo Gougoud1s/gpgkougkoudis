@@ -23,6 +23,7 @@ function ServiceIcon({ name }: { name?: string }) {
 
 export function Services({ services }: { services: Service[] }) {
   const t = useTranslations("home");
+  const td = useTranslations("dynamic");
   const locale = useLocale() as L;
 
   return (
@@ -39,7 +40,7 @@ export function Services({ services }: { services: Service[] }) {
               href="/services"
               className="mt-7 inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-charcoal hover:text-gold-dark smooth cursor-pointer"
             >
-              {locale === "en" ? "All services" : "Όλες οι υπηρεσίες"}
+              {td("allServices")}
               <ArrowUpRight className="size-4" aria-hidden="true" />
             </Link>
           </div>

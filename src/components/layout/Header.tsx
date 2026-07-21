@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Phone, MessageCircle, Menu, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Button } from "@/components/ui/Button";
 import { cn, telLink, whatsappLink } from "@/lib/utils";
-import { SITE } from "@/lib/site";
+import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 
 const NAV_ITEMS = [
   { href: "/collections", labelKey: "collections" as const },
@@ -19,10 +19,16 @@ const NAV_ITEMS = [
   { href: "/contact", labelKey: "contact" as const },
 ];
 
-export function Header() {
+export function Header({ settings }: { settings?: SiteSettings }) {
   const t = useTranslations("nav");
+  const locale = useLocale() as Locale;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const phoneTel = settings?.phoneTel || "";
+  const whatsapp = settings?.whatsapp || "";
+  const navItems = settings?.navigation?.length
+    ? settings.navigation.map((item) => ({ href: item.href || "/", label: loc(item.label, locale) }))
+    : NAV_ITEMS.map((item) => ({ href: item.href, label: t(item.labelKey) }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -53,19 +59,19 @@ export function Header() {
         )}
       >
         <div className="container-page flex items-center justify-between py-4 lg:py-5 gap-6">
-          <Logo />
+          <Logo settings={settings} />
 
           <nav
             aria-label="Primary"
             className="hidden lg:flex items-center gap-7 text-sm"
           >
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className="text-charcoal/80 hover:text-charcoal smooth cursor-pointer relative group whitespace-nowrap"
               >
-                {t(item.labelKey)}
+                {item.label}
                 <span className="absolute -bottom-1 left-0 right-0 h-px bg-gold scale-x-0 group-hover:scale-x-100 origin-left smooth" />
               </Link>
             ))}
@@ -74,7 +80,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <LocaleSwitcher className="hidden md:flex mr-2" />
             <a
-              href={telLink(SITE.phoneTel)}
+              href={telLink(phoneTel)}
               className="hidden md:inline-flex"
               data-event="header-call"
             >
@@ -84,7 +90,7 @@ export function Header() {
               </Button>
             </a>
             <a
-              href={whatsappLink(undefined, SITE.whatsappNumber)}
+              href={whatsappLink(undefined, whatsapp)}
               target="_blank"
               rel="noreferrer"
               className="hidden md:inline-flex"
@@ -131,7 +137,7 @@ export function Header() {
           )}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-line">
-            <Logo />
+            <Logo settings={settings} />
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -145,21 +151,21 @@ export function Header() {
             aria-label="Mobile"
             className="flex-1 overflow-y-auto px-5 py-6 flex flex-col gap-1"
           >
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className="display-serif text-3xl text-charcoal py-3 border-b border-line/60 cursor-pointer smooth hover:text-gold-dark"
               >
-                {t(item.labelKey)}
+                {item.label}
               </Link>
             ))}
           </nav>
           <div className="px-5 py-5 border-t border-line space-y-3">
             <div className="flex gap-2">
               <a
-                href={telLink(SITE.phoneTel)}
+                href={telLink(phoneTel)}
                 className="flex-1"
                 data-event="mobile-call"
               >
@@ -169,7 +175,7 @@ export function Header() {
                 </Button>
               </a>
               <a
-                href={whatsappLink(undefined, SITE.whatsappNumber)}
+                href={whatsappLink(undefined, whatsapp)}
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1"

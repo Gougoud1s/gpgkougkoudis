@@ -3,10 +3,10 @@ import { Star, Quote } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
-import { getTestimonials } from "@/sanity/fetch";
+import { getSiteSettings, getTestimonials } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
-import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -15,7 +15,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "reviews" });
-  return { title: t("title"), description: t("subtitle") };
+  return localizedMetadata({ locale, path: "reviews", title: t("title"), description: t("subtitle") });
 }
 
 export default async function ReviewsPage({
@@ -26,7 +26,8 @@ export default async function ReviewsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "reviews" });
-  const testimonials = await getTestimonials();
+  const [testimonials, settings] = await Promise.all([getTestimonials(), getSiteSettings()]);
+  const td = await getTranslations({ locale, namespace: "dynamic" });
 
   return (
     <>
@@ -41,10 +42,10 @@ export default async function ReviewsPage({
               ))}
             </span>
             <span className="ml-2 display-serif text-2xl text-charcoal">
-              {SITE.google.rating}
+              {settings.googleRating}
             </span>
             <span className="text-stone-2">
-              · {SITE.google.reviewCount} reviews on Google
+              · {settings.googleReviewCount} {td("reviewsOnGoogle")}
             </span>
           </div>
         </Container>
@@ -82,7 +83,7 @@ export default async function ReviewsPage({
 
           <div className="mt-16 text-center">
             <a
-              href={SITE.social.google}
+              href={settings.social?.google}
               target="_blank"
               rel="noreferrer"
               data-event="reviews-leave-google"

@@ -31,9 +31,8 @@ npm run dev
 
 Visit `http://localhost:3000` — you will be redirected to `/el`.
 
-The site **renders without a Sanity dataset**: it falls back to placeholder
-content from `src/sanity/fallback.ts`. Once you set
-`NEXT_PUBLIC_SANITY_PROJECT_ID` it switches to live content.
+The site requires the connected Sanity dataset. Set
+`NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` locally.
 
 ## Sanity Studio
 
@@ -80,8 +79,7 @@ src/
   sanity/
     schemas/                 # All schemas (with localized helpers)
     queries.ts               # GROQ queries
-    fetch.ts                 # Server fetch with fallback to placeholder data
-    fallback.ts              # Placeholder content for dev / pre-CMS
+    fetch.ts                 # Server-side Sanity data access
     structure.ts             # Friendly Greek sidebar for the Studio
   lib/                       # utils, site constants
 docs/

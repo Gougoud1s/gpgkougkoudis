@@ -1,58 +1,36 @@
-import { SITE } from "@/lib/site";
+import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 
 /**
  * JSON-LD for JewelryStore + LocalBusiness — used on all pages.
  */
-export function LocalBusinessJsonLd({ locale = "el" }: { locale?: string }) {
+export function LocalBusinessJsonLd({ locale = "el", settings }: { locale?: Locale; settings: SiteSettings }) {
+  const url = settings.siteUrl || "http://localhost:3000";
+  const brand = loc(settings.brand, locale);
+  const address = loc(settings.address, locale);
   const data = {
     "@context": "https://schema.org",
     "@type": ["JewelryStore", "LocalBusiness"],
-    "@id": `${SITE.url}/#business`,
-    name: locale === "en" ? SITE.brandEn : SITE.brand,
-    alternateName: SITE.legalName,
-    url: SITE.url,
-    telephone: SITE.phoneTel,
-    email: SITE.email,
-    image: `${SITE.url}/og-default.jpg`,
+    "@id": `${url}/#business`,
+    name: brand,
+    url,
+    telephone: settings.phoneTel,
+    email: settings.email,
     priceRange: "€€€",
     address: {
       "@type": "PostalAddress",
-      streetAddress: locale === "en" ? SITE.address.streetEn : SITE.address.street,
-      addressLocality: locale === "en" ? SITE.address.cityEn : SITE.address.city,
-      addressRegion: locale === "en" ? SITE.address.regionEn : SITE.address.region,
-      postalCode: SITE.address.postalCode,
-      addressCountry: SITE.address.country,
+      streetAddress: address,
+      addressCountry: "GR",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: SITE.geo.latitude,
-      longitude: SITE.geo.longitude,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "20:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Tuesday", "Saturday"],
-        opens: "09:00",
-        closes: "15:00",
-      },
-    ],
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: SITE.google.rating,
-      reviewCount: SITE.google.reviewCount,
+      ratingValue: settings.googleRating,
+      reviewCount: settings.googleReviewCount,
     },
     sameAs: [
-      SITE.social.facebook,
-      SITE.social.instagram,
-      SITE.social.google,
-    ],
-    foundingDate: String(SITE.founded),
+      settings.social?.facebook,
+      settings.social?.instagram,
+      settings.social?.google,
+    ].filter(Boolean),
   };
 
   return (
@@ -70,6 +48,7 @@ export function ProductJsonLd({
   sku,
   price,
   url,
+  brand,
 }: {
   name: string;
   image: string;
@@ -77,6 +56,7 @@ export function ProductJsonLd({
   sku?: string;
   price?: number;
   url: string;
+  brand: string;
 }) {
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -85,7 +65,7 @@ export function ProductJsonLd({
     image,
     description,
     sku,
-    brand: { "@type": "Brand", name: SITE.brand },
+    brand: { "@type": "Brand", name: brand },
     url,
   };
   if (price) {
@@ -94,7 +74,7 @@ export function ProductJsonLd({
       priceCurrency: "EUR",
       price,
       availability: "https://schema.org/InStoreOnly",
-      seller: { "@type": "Organization", name: SITE.brand },
+      seller: { "@type": "Organization", name: brand },
     };
   }
   return (

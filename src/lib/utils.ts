@@ -14,13 +14,13 @@ export function formatPriceEUR(value: number | null | undefined) {
   }).format(value);
 }
 
-export function whatsappLink(message?: string, phone = "+302105023076") {
+export function whatsappLink(message: string | undefined, phone: string) {
   const cleanPhone = phone.replace(/\D/g, "");
   const msg = message ? `?text=${encodeURIComponent(message)}` : "";
   return `https://wa.me/${cleanPhone}${msg}`;
 }
 
-export function telLink(phone = "+302105023076") {
+export function telLink(phone: string) {
   return `tel:${phone}`;
 }
 
@@ -29,14 +29,10 @@ export function mailtoLink(email: string, subject?: string) {
   return `mailto:${email}${subjectPart}`;
 }
 
-export function mapsLink(
-  query = "Sirrakou 85-87, Petroupoli 131 23, Greece"
-) {
+export function mapsLink(query: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
-export function mapsDirectionsLink(
-  destination = "Sirrakou 85-87, Petroupoli 131 23, Greece"
-) {
+export function mapsDirectionsLink(destination: string) {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
 }

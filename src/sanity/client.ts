@@ -4,8 +4,7 @@ import { apiVersion, dataset, projectId } from "./env";
 /**
  * Lazily-instantiated Sanity client. We avoid creating the client at
  * module-evaluation time because `createClient` throws when `projectId`
- * is empty — which it can be in dev / preview mode where we render
- * placeholder content from `fallback.ts`.
+ * is empty during setup or tooling.
  */
 let _client: SanityClient | null = null;
 
@@ -28,6 +27,9 @@ export const client = {
   fetch: async <T>(query: string, params: Record<string, unknown> = {}) => {
     const c = getClient();
     if (!c) return null as T;
-    return c.fetch<T>(query, params);
+    // Editorial content should be visible immediately after publishing in
+    // Studio. Sanity's CDN can still serve the upstream response in
+    // production, while Next.js must not freeze it in the route cache.
+    return c.fetch<T>(query, params, { cache: "no-store" });
   },
 };

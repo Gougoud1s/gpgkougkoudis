@@ -7,6 +7,7 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { getCategories } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
 import type { Locale } from "@/i18n/routing";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -15,7 +16,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "collections" });
-  return { title: t("title") };
+  return localizedMetadata({ locale, path: "collections", title: t("title"), description: t("subtitle") });
 }
 
 export default async function CollectionsPage({
@@ -27,6 +28,7 @@ export default async function CollectionsPage({
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "collections" });
+  const tc = await getTranslations({ locale, namespace: "common" });
   const categories = await getCategories();
 
   return (
@@ -61,7 +63,7 @@ export default async function CollectionsPage({
                       </p>
                     )}
                     <span className="mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-gold-light">
-                      {locale === "en" ? "Explore" : "Εξερευνήστε"}
+                      {tc("explore")}
                       <ArrowUpRight className="size-3.5" aria-hidden="true" />
                     </span>
                   </div>

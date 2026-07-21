@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
 import { createClient } from "@sanity/client";
+import { getSiteSettings } from "@/sanity/fetch";
+import { loc } from "@/sanity/types";
 
 export const runtime = "nodejs";
 
@@ -23,8 +25,6 @@ const schema = z.object({
   website: z.string().max(0).optional(),
 });
 
-const RECIPIENT = process.env.CONTACT_EMAIL_TO || "info@gpkougkoudis.gr";
-const SENDER = process.env.CONTACT_EMAIL_FROM || "no-reply@gpkougkoudis.gr";
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 8;
 const ipRequests = new Map<string, number[]>();
@@ -91,8 +91,12 @@ export async function POST(req: Request) {
   }
 
   const resend = new Resend(apiKey);
+  const settings = await getSiteSettings();
+  const recipient = process.env.CONTACT_EMAIL_TO || settings.email || "";
+  const sender = process.env.CONTACT_EMAIL_FROM || `no-reply@${new URL(settings.siteUrl || "https://example.com").hostname.replace(/^www\./, "")}`;
+  const brand = loc(settings.brand, "el");
   const subject = parsed.data.subject ||
-    `[${parsed.data.formType ?? "contact"}] νέο μήνυμα από ${parsed.data.name}`;
+    `[${parsed.data.formType ?? "contact"}] ${parsed.data.name}`;
 
   const lines: string[] = [
     `Form: ${parsed.data.formType ?? "contact"}`,
@@ -116,8 +120,8 @@ export async function POST(req: Request) {
 
   try {
     await resend.emails.send({
-      from: `GP. ΓΚΟΥΓΚΟΥΔΗΣ Website <${SENDER}>`,
-      to: [RECIPIENT],
+      from: `${brand} Website <${sender}>`,
+      to: [recipient],
       replyTo: parsed.data.email,
       subject,
       text: lines.join("\n"),

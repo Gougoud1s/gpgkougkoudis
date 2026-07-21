@@ -21,7 +21,7 @@ const schema = z.object({
 
 type Values = z.infer<typeof schema>;
 
-export function AppointmentForm() {
+export function AppointmentForm({ times, attendees }: { times: string[]; attendees: string[] }) {
   const t = useTranslations("forms");
   const tCommon = useTranslations("common");
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
@@ -44,9 +44,9 @@ export function AppointmentForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          subject: `Ραντεβού — Γάμος & Αρραβώνας (${values.preferredDate} ${values.preferredTime})`,
+          subject: t("appointmentSubject", { date: values.preferredDate, time: values.preferredTime }),
           formType: "appointment",
-          message: `Άτομα: ${values.attendees || 2}\n\n${values.message || ""}`,
+          message: `${t("attendeesMessage", { count: values.attendees || 2 })}\n\n${values.message || ""}`,
         }),
       });
       if (!res.ok) throw new Error();
@@ -86,33 +86,25 @@ export function AppointmentForm() {
           <FieldError>{errors.phone?.message}</FieldError>
         </div>
         <div>
-          <Label htmlFor="apt-attendees">Άτομα</Label>
+          <Label htmlFor="apt-attendees">{t("attendees")}</Label>
           <Select id="apt-attendees" {...register("attendees")}>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4+</option>
+            {attendees.map((option) => <option key={option} value={option}>{option}</option>)}
           </Select>
         </div>
         <div>
-          <Label htmlFor="apt-date">Ημερομηνία</Label>
+          <Label htmlFor="apt-date">{t("date")}</Label>
           <Input id="apt-date" type="date" {...register("preferredDate")} />
           <FieldError>{errors.preferredDate?.message}</FieldError>
         </div>
         <div>
-          <Label htmlFor="apt-time">Ώρα</Label>
+          <Label htmlFor="apt-time">{t("time")}</Label>
           <Select id="apt-time" {...register("preferredTime")}>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="12:00">12:00</option>
-            <option value="13:00">13:00</option>
-            <option value="18:00">18:00</option>
-            <option value="19:00">19:00</option>
+            {times.map((option) => <option key={option} value={option}>{option}</option>)}
           </Select>
         </div>
       </div>
       <div>
-        <Label htmlFor="apt-message">Σημείωση (προαιρετικό)</Label>
+        <Label htmlFor="apt-message">{t("noteOptional")}</Label>
         <Textarea id="apt-message" rows={3} {...register("message")} />
       </div>
       <label className="flex items-start gap-3 text-xs text-stone leading-snug cursor-pointer">
@@ -128,7 +120,7 @@ export function AppointmentForm() {
         className="w-full"
         disabled={status === "loading"}
       >
-        {status === "loading" ? tCommon("sending") : "Κλείσιμο ραντεβού"}
+        {status === "loading" ? tCommon("sending") : t("bookAppointment")}
       </Button>
 
       {status === "error" && (

@@ -7,6 +7,8 @@ import { siteSettings } from "./siteSettings";
 import { faq } from "./faq";
 import { journalPost } from "./journalPost";
 import { submission } from "./submission";
+import { contentPage } from "./contentPage";
+import { uiText } from "./uiText";
 
 export const schemaTypes = [
   category,
@@ -18,4 +20,6 @@ export const schemaTypes = [
   faq,
   journalPost,
   submission,
+  contentPage,
+  uiText,
 ];

@@ -6,12 +6,12 @@ import { Star, Quote } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
-import { loc, type Locale as L, type Testimonial } from "@/sanity/types";
-import { SITE } from "@/lib/site";
+import { loc, type Locale as L, type SiteSettings, type Testimonial } from "@/sanity/types";
 
-export function ReviewsCarousel({ testimonials }: { testimonials: Testimonial[] }) {
+export function ReviewsCarousel({ testimonials, settings }: { testimonials: Testimonial[]; settings?: SiteSettings }) {
   const t = useTranslations("home");
   const tReviews = useTranslations("reviews");
+  const td = useTranslations("dynamic");
   const locale = useLocale() as L;
 
   if (!testimonials?.length) return null;
@@ -33,8 +33,8 @@ export function ReviewsCarousel({ testimonials }: { testimonials: Testimonial[] 
               ))}
             </span>
             <span>
-              <strong className="text-charcoal">{SITE.google.rating}</strong> ·{" "}
-              {SITE.google.reviewCount} reviews on Google
+              <strong className="text-charcoal">{settings?.googleRating}</strong> ·{" "}
+              {settings?.googleReviewCount} {td("reviewsOnGoogle")}
             </span>
           </div>
         </div>
@@ -74,7 +74,7 @@ export function ReviewsCarousel({ testimonials }: { testimonials: Testimonial[] 
 
         <div className="mt-12 text-center">
           <a
-            href={SITE.social.google}
+            href={settings?.social?.google}
             target="_blank"
             rel="noreferrer"
             data-event="reviews-leave-google"

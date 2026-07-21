@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
               "font-src 'self' data: https://fonts.gstatic.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.clarity.ms",
-              "connect-src 'self' https://cdn.sanity.io https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms",
+              "connect-src 'self' https://cdn.sanity.io https://sanity-cdn.com https://*.api.sanity.io wss://*.api.sanity.io https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms",
               "frame-src 'self' https://www.google.com",
               "object-src 'none'",
               "upgrade-insecure-requests",

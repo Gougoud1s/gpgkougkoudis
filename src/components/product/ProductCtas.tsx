@@ -4,27 +4,32 @@ import { useTranslations } from "next-intl";
 import { MessageCircle, Phone, CalendarHeart } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { telLink, whatsappLink } from "@/lib/utils";
-import { SITE } from "@/lib/site";
 
 export function ProductCtas({
   productTitle,
   productSku,
   onReserveClick,
+  phone,
+  whatsapp,
 }: {
   productTitle: string;
   productSku?: string;
   onReserveClick?: () => void;
+  phone: string;
+  whatsapp: string;
 }) {
   const t = useTranslations("product");
+  const td = useTranslations("dynamic");
 
-  const message = `Γεια σας! Ενδιαφέρομαι για το κόσμημα "${productTitle}"${
-    productSku ? ` (κωδικός ${productSku})` : ""
-  }.`;
+  const message = td("productInterest", {
+    product: `"${productTitle}"`,
+    sku: productSku ? td("productSku", { sku: productSku }) : "",
+  });
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-8">
       <a
-        href={whatsappLink(message, SITE.whatsappNumber)}
+        href={whatsappLink(message, whatsapp)}
         target="_blank"
         rel="noreferrer"
         data-event="product-whatsapp"
@@ -49,7 +54,7 @@ export function ProductCtas({
       </Button>
 
       <a
-        href={telLink(SITE.phoneTel)}
+        href={telLink(phone)}
         data-event="product-call"
         className="contents"
       >

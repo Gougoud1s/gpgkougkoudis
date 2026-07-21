@@ -49,7 +49,11 @@ export const allServicesQuery = groq`*[_type == "service"] | order(order asc){
   _id, title, tagline, slug, icon, image, shortDescription, featured
 }`;
 
-export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0]`;
+export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0]{
+  ...,
+  image{..., asset->{url, metadata{lqip, dimensions}}},
+  gallery[]{..., asset->{url, metadata{lqip, dimensions}}}
+}`;
 
 export const allTestimonialsQuery = groq`*[_type == "testimonial"] | order(publishedAt desc){
   _id, author, rating, quote, source, publishedAt
@@ -60,3 +64,15 @@ export const allFaqsQuery = groq`*[_type == "faq"] | order(order asc){
 }`;
 
 export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]`;
+
+export const contentPageByRouteQuery = groq`*[_type == "contentPage" && route == $route][0]{
+  ...,
+  heroImage{..., asset->{url, metadata{lqip, dimensions}}},
+  sections[]{
+    ...,
+    image{..., asset->{url, metadata{lqip, dimensions}}},
+    items[]{..., image{..., asset->{url, metadata{lqip, dimensions}}}}
+  }
+}`;
+
+export const allUiTextQuery = groq`*[_type == "uiText"]{key, value}`;

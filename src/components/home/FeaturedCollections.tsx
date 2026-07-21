@@ -11,6 +11,7 @@ import { loc, type Category, type Locale as L } from "@/sanity/types";
 
 export function FeaturedCollections({ categories }: { categories: Category[] }) {
   const t = useTranslations("home");
+  const td = useTranslations("dynamic");
   const locale = useLocale() as L;
 
   return (
@@ -30,7 +31,7 @@ export function FeaturedCollections({ categories }: { categories: Category[] }) 
             href="/collections"
             className="text-sm uppercase tracking-[0.2em] text-charcoal hover:text-gold-dark inline-flex items-center gap-2 smooth cursor-pointer self-start md:self-end"
           >
-            {locale === "en" ? "All collections" : "Όλες οι συλλογές"}
+            {td("allCollections")}
             <ArrowUpRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
@@ -66,7 +67,7 @@ export function FeaturedCollections({ categories }: { categories: Category[] }) 
                       {loc(category.title, locale)}
                     </h3>
                     <span className="mt-2 inline-flex items-center gap-1 text-xs uppercase tracking-[0.18em] opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 smooth">
-                      {locale === "en" ? "Explore" : "Εξερευνήστε"}
+                      {t("featuredCollectionsEyebrow")}
                       <ArrowUpRight className="size-3" aria-hidden="true" />
                     </span>
                   </div>

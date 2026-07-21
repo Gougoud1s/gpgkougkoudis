@@ -1,36 +1,43 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { MapPin, Phone, Mail, Star } from "lucide-react";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/SocialIcons";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "./Logo";
-import { SITE } from "@/lib/site";
 import { mailtoLink, mapsLink, telLink } from "@/lib/utils";
+import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 
-export function Footer() {
+export function Footer({ settings }: { settings?: SiteSettings }) {
   const t = useTranslations("footer");
   const tNav = useTranslations("nav");
   const tContact = useTranslations("contact");
+  const locale = useLocale() as Locale;
+  const brand = loc(settings?.brand, locale);
+  const address = loc(settings?.address, locale);
+  const phoneDisplay = settings?.phoneDisplay || "";
+  const phoneTel = settings?.phoneTel || "";
+  const email = settings?.email || "";
+  const social = settings?.social || {};
+  const rating = settings?.googleRating;
+  const reviewCount = settings?.googleReviewCount;
 
   return (
     <footer className="bg-charcoal text-cream/85 mt-32">
       <div className="container-page py-16 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5 space-y-5">
-          <Logo variant="light" />
+          <Logo variant="light" settings={settings} />
           <p className="text-sm leading-relaxed text-cream/65 max-w-sm">
-            Κοσμηματοπωλείο στην καρδιά της Πετρούπολης από το 1985.
-            Χρυσά και λευκόχρυσα κοσμήματα, βέρες, μονόπετρα, επισκευές
-            και αγορά χρυσού.
+            {loc(settings?.footerDescription, locale) || loc(settings?.tagline, locale)}
           </p>
           <div className="flex items-center gap-2 text-sm">
             <Star className="size-4 fill-gold text-gold" aria-hidden="true" />
             <span>
-              <strong className="text-cream">{SITE.google.rating}</strong> ·{" "}
-              {SITE.google.reviewCount} reviews on Google
+              <strong className="text-cream">{rating}</strong> ·{" "}
+              {reviewCount} reviews on Google
             </span>
           </div>
           <div className="flex gap-3">
             <a
-              href={SITE.social.facebook}
+              href={social.facebook}
               target="_blank"
               rel="noreferrer"
               className="inline-flex size-10 items-center justify-center rounded-full border border-cream/20 hover:bg-cream hover:text-charcoal smooth cursor-pointer"
@@ -39,7 +46,7 @@ export function Footer() {
               <FacebookIcon className="size-4" />
             </a>
             <a
-              href={SITE.social.instagram}
+              href={social.instagram}
               target="_blank"
               rel="noreferrer"
               className="inline-flex size-10 items-center justify-center rounded-full border border-cream/20 hover:bg-cream hover:text-charcoal smooth cursor-pointer"
@@ -97,36 +104,34 @@ export function Footer() {
           <ul className="space-y-3 text-sm">
             <li>
               <a
-                href={mapsLink()}
+                href={mapsLink(address.replace(/\n/g, ", "))}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-start gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
               >
                 <MapPin className="size-4 mt-0.5 shrink-0" aria-hidden="true" />
                 <span>
-                  Σιρράκου 85-87
-                  <br />
-                  Πετρούπολη 131 23, Αττική
+                  {address.split("\n").map((line, index) => <span key={index}>{line}{index < address.split("\n").length - 1 && <br />}</span>)}
                 </span>
               </a>
             </li>
             <li>
               <a
-                href={telLink(SITE.phoneTel)}
+                href={telLink(phoneTel)}
                 className="flex items-center gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
                 data-event="footer-call"
               >
                 <Phone className="size-4 shrink-0" aria-hidden="true" />
-                <span>{SITE.phoneDisplay}</span>
+                <span>{phoneDisplay}</span>
               </a>
             </li>
             <li>
               <a
-                href={mailtoLink(SITE.email)}
+                href={mailtoLink(email)}
                 className="flex items-center gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
               >
                 <Mail className="size-4 shrink-0" aria-hidden="true" />
-                <span>{SITE.email}</span>
+                <span>{email}</span>
               </a>
             </li>
           </ul>
@@ -136,7 +141,7 @@ export function Footer() {
       <div className="border-t border-cream/10">
         <div className="container-page py-6 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-cream/50">
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
-            © {new Date().getFullYear()} {SITE.brand}. {t("rights")}
+            © {new Date().getFullYear()} {brand}. {t("rights")}
             <span aria-hidden="true">·</span>
             <span>
               Developed by{" "}

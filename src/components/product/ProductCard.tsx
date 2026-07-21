@@ -1,6 +1,6 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { formatPriceEUR } from "@/lib/utils";
@@ -14,6 +14,8 @@ export function ProductCard({
   categorySlug?: string;
 }) {
   const locale = useLocale() as L;
+  const tc = useTranslations("common");
+  const td = useTranslations("dynamic");
   const slug =
     categorySlug ||
     (product.category && "slug" in product.category
@@ -50,9 +52,7 @@ export function ProductCard({
       <div className="mt-1 flex items-center gap-2 text-xs text-stone-2 uppercase tracking-[0.14em]">
         {product.material && (
           <span>
-            {locale === "en"
-              ? materialLabelEn(product.material)
-              : materialLabelEl(product.material)}
+            {td(`materials.${product.material}` as never)}
           </span>
         )}
         {product.karat && (
@@ -64,30 +64,9 @@ export function ProductCard({
       </div>
       <p className="mt-2 text-sm text-charcoal">
         {product.priceOnRequest || !product.price
-          ? locale === "en"
-            ? "Price on request"
-            : "Τιμή κατόπιν αιτήματος"
+          ? tc("priceOnRequest")
           : formatPriceEUR(product.price)}
       </p>
     </Link>
   );
-}
-
-function materialLabelEl(m: string) {
-  return {
-    gold: "Χρυσός",
-    "white-gold": "Λευκόχρυσος",
-    "rose-gold": "Ροζ Χρυσός",
-    silver: "Ασήμι",
-    platinum: "Πλατίνα",
-  }[m] ?? m;
-}
-function materialLabelEn(m: string) {
-  return {
-    gold: "Gold",
-    "white-gold": "White Gold",
-    "rose-gold": "Rose Gold",
-    silver: "Silver",
-    platinum: "Platinum",
-  }[m] ?? m;
 }

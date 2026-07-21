@@ -2,39 +2,35 @@ import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { ServiceLeadForm } from "@/components/forms/ServiceLeadForm";
+import { PortableText } from "@portabletext/react";
+import { getTranslations } from "next-intl/server";
+import { getSiteSettings } from "@/sanity/fetch";
 import type { Service, Locale as L } from "@/sanity/types";
 import { loc } from "@/sanity/types";
 
 type Step = { title: string; text: string };
 
-export function ServiceLayout({
+export async function ServiceLayout({
   service,
   locale,
-  intro,
-  steps,
-  highlights,
-  formType,
-  showBudget,
-  showDeadline,
-  showOccasion,
 }: {
   service: Service;
   locale: L;
-  intro: React.ReactNode;
-  steps?: Step[];
-  highlights?: { label: string; value: string }[];
-  formType:
-    | "custom-design"
-    | "repairs"
-    | "engraving"
-    | "appraisals"
-    | "buy-gold";
-  showBudget?: boolean;
-  showDeadline?: boolean;
-  showOccasion?: boolean;
 }) {
   const title = loc(service.title, locale);
+  const t = await getTranslations({ locale, namespace: "dynamic" });
+  const settings = await getSiteSettings();
   const tagline = loc(service.tagline, locale);
+  const body = service.body?.[locale] || service.body?.el || service.body?.en || [];
+  const steps: Step[] = (service.steps || []).map((step) => ({
+    title: loc(step.title, locale),
+    text: loc(step.text, locale),
+  }));
+  const highlights = (service.highlights || []).map((item) => ({
+    label: loc(item.label, locale),
+    value: loc(item.value, locale),
+  }));
+  const formEnabled = service.form?.enabled !== false;
 
   return (
     <>
@@ -53,7 +49,7 @@ export function ServiceLayout({
         )}
         <Container className="relative z-10">
           <Eyebrow className="text-gold-light">
-            {locale === "en" ? "Service" : "Υπηρεσία"}
+            {t("service")}
           </Eyebrow>
           <h1 className="mt-4 text-cream text-balance">{title}</h1>
           {tagline && (
@@ -69,13 +65,17 @@ export function ServiceLayout({
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div className="lg:col-span-7 prose-content">
               <div className="space-y-6 text-stone leading-relaxed text-base md:text-lg">
-                {intro}
+                {Array.isArray(body) && body.length > 0 ? (
+                  <PortableText value={body as never} />
+                ) : (
+                  <p>{loc(service.shortDescription, locale)}</p>
+                )}
               </div>
 
               {steps && steps.length > 0 && (
                 <div className="mt-14">
                   <Eyebrow>
-                    {locale === "en" ? "Our process" : "Η διαδικασία"}
+                    {t("process")}
                   </Eyebrow>
                   <ol className="mt-6 grid gap-4 sm:grid-cols-2">
                     {steps.map((step, idx) => (
@@ -114,25 +114,24 @@ export function ServiceLayout({
               )}
             </div>
 
-            <aside className="lg:col-span-5">
+            {formEnabled && <aside className="lg:col-span-5">
               <div className="lg:sticky lg:top-28 bg-cream-2/60 border border-line p-7 md:p-9 rounded-sm">
                 <h2 className="display-serif text-2xl mb-2">
-                  {locale === "en" ? "Get in touch" : "Επικοινωνήστε μαζί μας"}
+                  {loc(service.form?.title, locale) || t("getInTouch")}
                 </h2>
                 <p className="text-sm text-stone mb-6 leading-relaxed">
-                  {locale === "en"
-                    ? "Tell us a few details and we'll get back to you within one business day."
-                    : "Πείτε μας λίγα στοιχεία και θα επικοινωνήσουμε εντός μίας εργάσιμης ημέρας."}
+                  {loc(service.form?.description, locale) || t("getInTouchDescription")}
                 </p>
                 <ServiceLeadForm
-                  formType={formType}
+                  formType={service.slug.current}
                   serviceTitle={title}
-                  showBudget={showBudget}
-                  showDeadline={showDeadline}
-                  showOccasion={showOccasion}
+                  showBudget={service.form?.showBudget}
+                  showDeadline={service.form?.showDeadline}
+                  showOccasion={service.form?.showOccasion}
+                  budgetOptions={(settings.budgetOptions || []).map((option) => ({ value: option.value || "", label: loc(option.label, locale) }))}
                 />
               </div>
-            </aside>
+            </aside>}
           </div>
         </Container>
       </section>
@@ -141,10 +140,10 @@ export function ServiceLayout({
         <section className="pb-24 md:pb-32">
           <Container>
             <Eyebrow align="center">
-              {locale === "en" ? "Gallery" : "Έργα μας"}
+              {t("gallery")}
             </Eyebrow>
             <h2 className="display-serif mt-3 text-center mb-12">
-              {locale === "en" ? "From our workshop" : "Από το εργαστήριό μας"}
+              {t("workshopGallery")}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
               {service.gallery.map((img, idx) => (

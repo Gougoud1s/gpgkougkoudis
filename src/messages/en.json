@@ -223,12 +223,63 @@
     "budget": "Budget",
     "deadline": "Deadline",
     "occasion": "Occasion",
+    "attendees": "Attendees",
+    "date": "Date",
+    "time": "Time",
+    "noteOptional": "Note (optional)",
+    "bookAppointment": "Book appointment",
+    "appointmentSubject": "Wedding & Engagement appointment ({date} {time})",
+    "attendeesMessage": "Attendees: {count}",
+    "serviceRequestSubject": "{service} — enquiry",
+    "reservationSubject": "Viewing reservation — {product}{sku}",
+    "occasions": {
+      "wedding": "Wedding",
+      "engagement": "Engagement",
+      "anniversary": "Anniversary",
+      "birthday": "Birthday",
+      "christening": "Christening",
+      "gift": "Gift",
+      "other": "Other"
+    },
     "required": "This field is required",
     "invalidEmail": "Invalid email address",
+    "messageTooShort": "Please add a little more detail.",
     "consent": "I have read and accept the Privacy Policy."
   },
   "metadata": {
     "homeTitle": "GP. KOUGKOUDIS — Jewelry store in Petroupoli, Athens",
     "homeDescription": "Gold and white-gold jewelry in 9, 14 and 18 karat with precious stones. Repairs, custom design and gold buying in Petroupoli, Athens."
+  },
+  "dynamic": {
+    "service": "Service",
+    "process": "Our process",
+    "gallery": "Gallery",
+    "workshopGallery": "From our workshop",
+    "getInTouch": "Get in touch",
+    "getInTouchDescription": "Tell us a few details and we'll get back to you within one business day.",
+    "allServices": "All services",
+    "allCollections": "All collections",
+    "selectedPieces": "Selected pieces",
+    "selectedPiecesTitle": "Curated highlights from our showcase",
+    "learnMore": "Learn more",
+    "collection": "Collection",
+    "comingSoon": "Coming soon. Please contact us to enquire about this collection.",
+    "sendMessage": "Send us a message",
+    "replyTime": "We typically reply within one business day.",
+    "featured": "Featured",
+    "priceAll": "All prices",
+    "reviewsOnGoogle": "reviews on Google",
+    "productInterest": "Hello! I am interested in {product}{sku}.",
+    "productSku": " (SKU {sku})"
+    ,"notFoundTitle": "Page not found"
+    ,"notFoundText": "The page you are looking for does not exist or has moved."
+    ,"backHome": "Return home"
+    ,"viewCollections": "View collections"
+    ,"directions": "Directions"
+    ,"mapTitle": "Store location map"
+    ,"results": "{count, plural, one {# result} other {# results}}"
+    ,"materials": {"gold":"Gold","white-gold":"White Gold","rose-gold":"Rose Gold","silver":"Silver","platinum":"Platinum"}
+    ,"stones": {"diamond":"Diamond","sapphire":"Sapphire","ruby":"Ruby","emerald":"Emerald","pearl":"Pearl","zircon":"Zircon","other":"Other","none":"No stone"}
+    ,"occasionLabels": {"everyday":"Everyday","wedding":"Wedding","engagement":"Engagement","gift":"Gift","anniversary":"Anniversary","christening":"Christening"}
   }
 }

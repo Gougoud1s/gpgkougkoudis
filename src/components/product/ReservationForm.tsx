@@ -50,9 +50,7 @@ export function ReservationForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          subject: `Κράτηση για δοκιμή — ${productTitle}${
-            productSku ? ` (${productSku})` : ""
-          }`,
+          subject: t("reservationSubject", { product: productTitle, sku: productSku ? ` (${productSku})` : "" }),
           formType: "reservation",
         }),
       });

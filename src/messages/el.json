@@ -223,12 +223,63 @@
     "budget": "Προϋπολογισμός",
     "deadline": "Προθεσμία",
     "occasion": "Περίσταση",
+    "attendees": "Άτομα",
+    "date": "Ημερομηνία",
+    "time": "Ώρα",
+    "noteOptional": "Σημείωση (προαιρετικό)",
+    "bookAppointment": "Κλείσιμο ραντεβού",
+    "appointmentSubject": "Ραντεβού — Γάμος & Αρραβώνας ({date} {time})",
+    "attendeesMessage": "Άτομα: {count}",
+    "serviceRequestSubject": "{service} — αίτημα",
+    "reservationSubject": "Κράτηση για δοκιμή — {product}{sku}",
+    "occasions": {
+      "wedding": "Γάμος",
+      "engagement": "Αρραβώνας",
+      "anniversary": "Επέτειος",
+      "birthday": "Γενέθλια",
+      "christening": "Βάπτιση",
+      "gift": "Δώρο",
+      "other": "Άλλο"
+    },
     "required": "Υποχρεωτικό πεδίο",
     "invalidEmail": "Μη έγκυρη διεύθυνση email",
+    "messageTooShort": "Παρακαλώ γράψτε λίγα παραπάνω.",
     "consent": "Έχω διαβάσει και αποδέχομαι την Πολιτική Απορρήτου."
   },
   "metadata": {
     "homeTitle": "GP. ΓΚΟΥΓΚΟΥΔΗΣ — Κοσμηματοπωλείο στην Πετρούπολη",
     "homeDescription": "Χρυσά και λευκόχρυσα κοσμήματα 9, 14, 18 καρατίων με πολύτιμες πέτρες. Επισκευές, σχεδιασμός κατά παραγγελία, αγορά χρυσού στην Πετρούπολη Αθήνας."
+  },
+  "dynamic": {
+    "service": "Υπηρεσία",
+    "process": "Η διαδικασία",
+    "gallery": "Έργα μας",
+    "workshopGallery": "Από το εργαστήριό μας",
+    "getInTouch": "Επικοινωνήστε μαζί μας",
+    "getInTouchDescription": "Πείτε μας λίγα στοιχεία και θα επικοινωνήσουμε εντός μίας εργάσιμης ημέρας.",
+    "allServices": "Όλες οι υπηρεσίες",
+    "allCollections": "Όλες οι συλλογές",
+    "selectedPieces": "Επιλεγμένα κομμάτια",
+    "selectedPiecesTitle": "Επιλεγμένα από τη βιτρίνα μας",
+    "learnMore": "Διαβάστε περισσότερα",
+    "collection": "Συλλογή",
+    "comingSoon": "Σύντομα κοντά σας. Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες.",
+    "sendMessage": "Στείλτε μας μήνυμα",
+    "replyTime": "Συνήθως απαντάμε εντός μίας εργάσιμης ημέρας.",
+    "featured": "Επιλεγμένα",
+    "priceAll": "Όλες",
+    "reviewsOnGoogle": "κριτικές στο Google",
+    "productInterest": "Γεια σας! Ενδιαφέρομαι για το κόσμημα {product}{sku}.",
+    "productSku": " (κωδικός {sku})"
+    ,"notFoundTitle": "Δεν βρέθηκε η σελίδα"
+    ,"notFoundText": "Η σελίδα που ψάχνετε δεν υπάρχει ή έχει μεταφερθεί."
+    ,"backHome": "Επιστροφή στην αρχική"
+    ,"viewCollections": "Δείτε τις συλλογές"
+    ,"directions": "Οδηγίες"
+    ,"mapTitle": "Χάρτης τοποθεσίας καταστήματος"
+    ,"results": "{count, plural, one {# αποτέλεσμα} other {# αποτελέσματα}}"
+    ,"materials": {"gold":"Χρυσός","white-gold":"Λευκόχρυσος","rose-gold":"Ροζ Χρυσός","silver":"Ασήμι","platinum":"Πλατίνα"}
+    ,"stones": {"diamond":"Διαμάντι","sapphire":"Ζαφείρι","ruby":"Ρουμπίνι","emerald":"Σμαράγδι","pearl":"Μαργαριτάρι","zircon":"Ζιργκόν","other":"Άλλο","none":"Χωρίς πέτρα"}
+    ,"occasionLabels": {"everyday":"Καθημερινό","wedding":"Γάμος","engagement":"Αρραβώνας","gift":"Δώρο","anniversary":"Επέτειος","christening":"Βάπτιση"}
   }
 }

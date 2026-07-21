@@ -58,6 +58,24 @@ export type Service = {
   image?: SanityImage;
   shortDescription?: LocalizedText;
   body?: { el?: unknown[]; en?: unknown[] };
+  steps?: Array<{
+    _key?: string;
+    title?: LocalizedString;
+    text?: LocalizedText;
+  }>;
+  highlights?: Array<{
+    _key?: string;
+    label?: LocalizedString;
+    value?: LocalizedString;
+  }>;
+  form?: {
+    enabled?: boolean;
+    title?: LocalizedString;
+    description?: LocalizedText;
+    showBudget?: boolean;
+    showDeadline?: boolean;
+    showOccasion?: boolean;
+  };
   gallery?: SanityImage[];
   featured?: boolean;
 };
@@ -95,6 +113,7 @@ export type Homepage = {
 export type SiteSettings = {
   brand?: LocalizedString;
   tagline?: LocalizedText;
+  logoTagline?: LocalizedText;
   phoneDisplay?: string;
   phoneTel?: string;
   whatsapp?: string;
@@ -108,6 +127,56 @@ export type SiteSettings = {
   hours?: Record<string, string | undefined>;
   googleRating?: number;
   googleReviewCount?: number;
+  siteUrl?: string;
+  footerDescription?: LocalizedText;
+  mapEmbedUrl?: string;
+  navigation?: Array<{
+    _key?: string;
+    label?: LocalizedString;
+    href?: string;
+  }>;
+  appointmentTimes?: string[];
+  attendeeOptions?: string[];
+  budgetOptions?: Array<{ _key?: string; value?: string; label?: LocalizedString }>;
+};
+
+export type ContentPageItem = {
+  _key?: string;
+  title?: LocalizedString;
+  text?: LocalizedText;
+  icon?: string;
+  image?: SanityImage;
+};
+
+export type ContentPageSection = {
+  _key?: string;
+  kind?: "text" | "imageText" | "cards" | "products" | "appointment";
+  eyebrow?: LocalizedString;
+  title?: LocalizedString;
+  text?: LocalizedText;
+  image?: SanityImage;
+  ctaLabel?: LocalizedString;
+  ctaHref?: string;
+  items?: ContentPageItem[];
+};
+
+export type ContentPage = {
+  _id: string;
+  route: string;
+  eyebrow?: LocalizedString;
+  title: LocalizedString;
+  subtitle?: LocalizedText;
+  heroImage?: SanityImage;
+  body?: { el?: unknown[]; en?: unknown[] };
+  sections?: ContentPageSection[];
+  seoTitle?: LocalizedString;
+  seoDescription?: LocalizedText;
+  updatedLabel?: string;
+};
+
+export type UiTextRecord = {
+  key: string;
+  value?: LocalizedText;
 };
 
 export function loc(value: LocalizedString | LocalizedText | undefined, locale: Locale): string {

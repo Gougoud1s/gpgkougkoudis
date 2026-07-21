@@ -8,25 +8,26 @@ import { useTranslations } from "next-intl";
 import { Input, Textarea, Label, FieldError, Select } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 
-const baseSchema = z.object({
-  name: z.string().min(2, "Required"),
-  email: z.string().email("Invalid email"),
+const makeSchema = (required: string, invalidEmail: string, messageTooShort: string) => z.object({
+  name: z.string().min(2, required),
+  email: z.string().email(invalidEmail),
   phone: z.string().optional(),
-  message: z.string().min(10, "Παρακαλώ γράψτε λίγα παραπάνω."),
+  message: z.string().min(10, messageTooShort),
   budget: z.string().optional(),
   deadline: z.string().optional(),
   occasion: z.string().optional(),
-  consent: z.boolean().refine((v) => v === true, "Required"),
+  consent: z.boolean().refine((v) => v === true, required),
 });
 
-type Values = z.infer<typeof baseSchema>;
+type Values = z.infer<ReturnType<typeof makeSchema>>;
 
 type Props = {
-  formType: "custom-design" | "repairs" | "engraving" | "appraisals" | "buy-gold" | "appointment";
+  formType: string;
   serviceTitle: string;
   showBudget?: boolean;
   showDeadline?: boolean;
   showOccasion?: boolean;
+  budgetOptions?: Array<{ value: string; label: string }>;
 };
 
 export function ServiceLeadForm({
@@ -35,9 +36,11 @@ export function ServiceLeadForm({
   showBudget = false,
   showDeadline = false,
   showOccasion = false,
+  budgetOptions = [],
 }: Props) {
   const t = useTranslations("forms");
   const tCommon = useTranslations("common");
+  const schema = makeSchema(t("required"), t("invalidEmail"), t("messageTooShort"));
   const [status, setStatus] = useState<"idle" | "loading" | "ok" | "error">("idle");
 
   const {
@@ -46,7 +49,7 @@ export function ServiceLeadForm({
     formState: { errors },
     reset,
   } = useForm<Values>({
-    resolver: zodResolver(baseSchema),
+    resolver: zodResolver(schema),
     defaultValues: { consent: false },
   });
 
@@ -58,7 +61,7 @@ export function ServiceLeadForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          subject: `${serviceTitle} — αίτημα`,
+          subject: t("serviceRequestSubject", { service: serviceTitle }),
           formType,
         }),
       });
@@ -102,10 +105,7 @@ export function ServiceLeadForm({
             <Label htmlFor={`${formType}-budget`}>{t("budget")} (€)</Label>
             <Select id={`${formType}-budget`} {...register("budget")}>
               <option value="">—</option>
-              <option value="under-500">&lt; 500€</option>
-              <option value="500-1500">500€ – 1500€</option>
-              <option value="1500-3000">1500€ – 3000€</option>
-              <option value="over-3000">&gt; 3000€</option>
+              {budgetOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
             </Select>
           </div>
         )}
@@ -124,13 +124,13 @@ export function ServiceLeadForm({
             <Label htmlFor={`${formType}-occasion`}>{t("occasion")}</Label>
             <Select id={`${formType}-occasion`} {...register("occasion")}>
               <option value="">—</option>
-              <option value="wedding">Γάμος</option>
-              <option value="engagement">Αρραβώνας</option>
-              <option value="anniversary">Επέτειος</option>
-              <option value="birthday">Γενέθλια</option>
-              <option value="christening">Βάπτιση</option>
-              <option value="gift">Δώρο</option>
-              <option value="other">Άλλο</option>
+              <option value="wedding">{t("occasions.wedding")}</option>
+              <option value="engagement">{t("occasions.engagement")}</option>
+              <option value="anniversary">{t("occasions.anniversary")}</option>
+              <option value="birthday">{t("occasions.birthday")}</option>
+              <option value="christening">{t("occasions.christening")}</option>
+              <option value="gift">{t("occasions.gift")}</option>
+              <option value="other">{t("occasions.other")}</option>
             </Select>
           </div>
         )}

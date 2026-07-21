@@ -13,8 +13,10 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { mailtoLink, mapsDirectionsLink, telLink, whatsappLink } from "@/lib/utils";
-import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
+import { getSiteSettings } from "@/sanity/fetch";
+import { loc } from "@/sanity/types";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -23,7 +25,7 @@ export async function generateMetadata({
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "contact" });
-  return { title: t("title"), description: t("subtitle") };
+  return localizedMetadata({ locale, path: "contact", title: t("title"), description: t("subtitle") });
 }
 
 export default async function ContactPage({
@@ -34,6 +36,16 @@ export default async function ContactPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "contact" });
+  const td = await getTranslations({ locale, namespace: "dynamic" });
+  const tc = await getTranslations({ locale, namespace: "common" });
+  const settings = await getSiteSettings();
+  const address = loc(settings.address, locale);
+  const phoneDisplay = settings.phoneDisplay || "";
+  const phoneTel = settings.phoneTel || "";
+  const whatsapp = settings.whatsapp || "";
+  const email = settings.email || "";
+  const social = settings.social || {};
+  const hours = settings.hours || {};
 
   return (
     <>
@@ -46,43 +58,42 @@ export default async function ContactPage({
             <div className="lg:col-span-5 space-y-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <InfoCard icon={MapPin} label={t("addressLabel")}>
-                  <p>Σιρράκου 85-87</p>
-                  <p>Πετρούπολη 131 23</p>
+                  {address.split("\n").map((line) => <p key={line}>{line}</p>)}
                 </InfoCard>
                 <InfoCard icon={Phone} label={t("phoneLabel")}>
                   <a
-                    href={telLink(SITE.phoneTel)}
+                    href={telLink(phoneTel)}
                     className="hover:text-gold-dark smooth"
                     data-event="contact-call"
                   >
-                    {SITE.phoneDisplay}
+                    {phoneDisplay}
                   </a>
                 </InfoCard>
                 <InfoCard icon={Mail} label={t("emailLabel")}>
                   <a
-                    href={mailtoLink(SITE.email)}
+                    href={mailtoLink(email)}
                     className="hover:text-gold-dark smooth break-all"
                   >
-                    {SITE.email}
+                    {email}
                   </a>
                 </InfoCard>
                 <InfoCard icon={Clock} label={t("hoursLabel")}>
                   <p className="text-sm">
                     {t("hours.mondayFriday")}<br />
-                    09:00–14:00, 17:30–20:30
+                    {hours.monday || "09:00–14:00, 17:30–20:30"}
                   </p>
                   <p className="text-sm mt-1">
-                    {t("hours.saturday")} 09:00–15:00
+                    {t("hours.saturday")} {hours.saturday || "09:00–15:00"}
                   </p>
                   <p className="text-sm mt-1 text-stone-2">
-                    {t("hours.sunday")}: {t("hours.closed")}
+                    {t("hours.sunday")}: {hours.sunday || t("hours.closed")}
                   </p>
                 </InfoCard>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 <a
-                  href={whatsappLink(undefined, SITE.whatsappNumber)}
+                  href={whatsappLink(undefined, whatsapp)}
                   target="_blank"
                   rel="noreferrer"
                   data-event="contact-whatsapp"
@@ -93,14 +104,14 @@ export default async function ContactPage({
                   </Button>
                 </a>
                 <a
-                  href={mapsDirectionsLink()}
+                  href={mapsDirectionsLink(address.replace(/\n/g, ", "))}
                   target="_blank"
                   rel="noreferrer"
                   data-event="contact-directions"
                 >
                   <Button variant="outline" size="md">
                     <Navigation className="size-4" aria-hidden="true" />
-                    {locale === "en" ? "Get directions" : "Οδηγίες"}
+                    {tc("getDirections")}
                   </Button>
                 </a>
               </div>
@@ -111,7 +122,7 @@ export default async function ContactPage({
                 </p>
                 <div className="flex gap-3">
                   <a
-                    href={SITE.social.facebook}
+                    href={social.facebook}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Facebook"
@@ -120,7 +131,7 @@ export default async function ContactPage({
                     <FacebookIcon className="size-4" />
                   </a>
                   <a
-                    href={SITE.social.instagram}
+                    href={social.instagram}
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Instagram"
@@ -134,7 +145,7 @@ export default async function ContactPage({
               <div className="aspect-[4/3] border border-line rounded-sm overflow-hidden bg-cream-2">
                 <iframe
                   title="Map"
-                  src="https://www.google.com/maps?q=Sirrakou+85-87,+Petroupoli+131+23,+Greece&output=embed"
+                  src={settings.mapEmbedUrl}
                   loading="lazy"
                   className="w-full h-full"
                   style={{ border: 0, filter: "grayscale(0.2) contrast(1.05)" }}
@@ -148,12 +159,10 @@ export default async function ContactPage({
             <div className="lg:col-span-7">
               <div className="bg-cream-2/40 border border-line p-7 md:p-10 rounded-sm">
                 <h2 className="display-serif text-2xl md:text-3xl mb-2">
-                  {locale === "en" ? "Send us a message" : "Στείλτε μας μήνυμα"}
+                  {td("sendMessage")}
                 </h2>
                 <p className="text-sm text-stone mb-8">
-                  {locale === "en"
-                    ? "We typically reply within one business day."
-                    : "Συνήθως απαντάμε εντός μίας εργάσιμης ημέρας."}
+                  {td("replyTime")}
                 </p>
                 <ContactForm />
               </div>

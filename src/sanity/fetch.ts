@@ -1,14 +1,5 @@
 import { client } from "./client";
 import {
-  fallbackCategories,
-  fallbackFaqs,
-  fallbackHomepage,
-  fallbackProducts,
-  fallbackServices,
-  fallbackSiteSettings,
-  fallbackTestimonials,
-} from "./fallback";
-import {
   allCategoriesQuery,
   allFaqsQuery,
   allServicesQuery,
@@ -18,6 +9,8 @@ import {
   productBySlugQuery,
   serviceBySlugQuery,
   siteSettingsQuery,
+  contentPageByRouteQuery,
+  allUiTextQuery,
 } from "./queries";
 import type {
   Category,
@@ -27,6 +20,8 @@ import type {
   Service,
   SiteSettings,
   Testimonial,
+  ContentPage,
+  UiTextRecord,
 } from "./types";
 
 const HAS_SANITY = Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
@@ -36,19 +31,20 @@ async function safeFetch<T>(query: string, params?: Record<string, unknown>): Pr
   try {
     return await client.fetch<T>(query, params || {});
   } catch (error) {
-    console.warn("[sanity] fetch failed, using fallback:", error);
+    console.warn("[sanity] fetch failed:", error);
     return null;
   }
 }
 
 export async function getHomepage(): Promise<Homepage> {
   const data = await safeFetch<Homepage>(homepageQuery);
-  return data ?? fallbackHomepage;
+  if (!data) throw new Error("Sanity homepage document is missing");
+  return data;
 }
 
 export async function getCategories(): Promise<Category[]> {
   const data = await safeFetch<Category[]>(allCategoriesQuery);
-  return data && data.length ? data : fallbackCategories;
+  return data || [];
 }
 
 export async function getCategoryBySlug(
@@ -60,59 +56,47 @@ export async function getCategoryBySlug(
   );
   if (data) return data;
 
-  const fallback = fallbackCategories.find((c) => c.slug.current === slug);
-  if (!fallback) return null;
-  return {
-    ...fallback,
-    products: fallbackProducts.filter(
-      (p) => "slug" in (p.category ?? {}) && (p.category as Category)?.slug?.current === slug
-    ),
-  };
+  return null;
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
   const data = await safeFetch<Product>(productBySlugQuery, { slug });
   if (data) return data;
 
-  const fallback = fallbackProducts.find((p) => p.slug.current === slug);
-  if (!fallback) return null;
-  const categorySlug =
-    "slug" in (fallback.category ?? {}) ? (fallback.category as Category)?.slug?.current : undefined;
-  return {
-    ...fallback,
-    related: fallbackProducts
-      .filter(
-        (p) =>
-          p._id !== fallback._id &&
-          "slug" in (p.category ?? {}) &&
-          (p.category as Category)?.slug?.current === categorySlug
-      )
-      .slice(0, 4),
-  };
+  return null;
 }
 
 export async function getServices(): Promise<Service[]> {
   const data = await safeFetch<Service[]>(allServicesQuery);
-  return data && data.length ? data : fallbackServices;
+  return data || [];
 }
 
 export async function getServiceBySlug(slug: string): Promise<Service | null> {
   const data = await safeFetch<Service>(serviceBySlugQuery, { slug });
   if (data) return data;
-  return fallbackServices.find((s) => s.slug.current === slug) ?? null;
+  return null;
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
   const data = await safeFetch<Testimonial[]>(allTestimonialsQuery);
-  return data && data.length ? data : fallbackTestimonials;
+  return data || [];
 }
 
 export async function getFaqs(): Promise<Faq[]> {
   const data = await safeFetch<Faq[]>(allFaqsQuery);
-  return data && data.length ? data : fallbackFaqs;
+  return data || [];
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   const data = await safeFetch<SiteSettings>(siteSettingsQuery);
-  return data ?? fallbackSiteSettings;
+  if (!data) throw new Error("Sanity siteSettings document is missing");
+  return data;
+}
+
+export async function getContentPage(route: string): Promise<ContentPage | null> {
+  return safeFetch<ContentPage>(contentPageByRouteQuery, { route });
+}
+
+export async function getUiText(): Promise<UiTextRecord[]> {
+  return (await safeFetch<UiTextRecord[]>(allUiTextQuery)) || [];
 }

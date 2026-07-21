@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant, Montserrat } from "next/font/google";
 import "./globals.css";
+import { getSiteSettings } from "@/sanity/fetch";
+import { loc } from "@/sanity/types";
 
 const cormorant = Cormorant({
   subsets: ["latin", "latin-ext"],
@@ -21,20 +23,20 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://www.gpkougkoudis.gr"),
-  title: {
-    default: "GP. ΓΚΟΥΓΚΟΥΔΗΣ — Κοσμηματοπωλείο στην Πετρούπολη",
-    template: "%s | GP. ΓΚΟΥΓΚΟΥΔΗΣ",
-  },
-  description:
-    "Χρυσά και λευκόχρυσα κοσμήματα 9, 14, 18 καρατίων. Επισκευές, σχεδιασμός κατά παραγγελία και αγορά χρυσού στην Πετρούπολη Αθήνας.",
-  icons: {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const brand = loc(settings.brand, "el");
+  return {
+    metadataBase: new URL(settings.siteUrl || "http://localhost:3000"),
+    title: { default: `${brand} — ${loc(settings.tagline, "el")}`, template: `%s | ${brand}` },
+    description: loc(settings.tagline, "el"),
+    icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
-};
+    },
+  };
+}
 
 export default function RootLayout({
   children,

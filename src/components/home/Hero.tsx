@@ -8,10 +8,9 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { loc, type Homepage, type Locale as L } from "@/sanity/types";
-import { SITE } from "@/lib/site";
+import { loc, type Homepage, type Locale as L, type SiteSettings } from "@/sanity/types";
 
-export function Hero({ homepage }: { homepage: Homepage }) {
+export function Hero({ homepage, settings }: { homepage: Homepage; settings?: SiteSettings }) {
   const t = useTranslations("home");
   const locale = useLocale() as L;
 
@@ -27,7 +26,7 @@ export function Hero({ homepage }: { homepage: Homepage }) {
           fill
           priority
           sizes="100vw"
-          alt="GP. ΓΚΟΥΓΚΟΥΔΗΣ"
+          alt={title}
           className="opacity-70"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
@@ -89,13 +88,13 @@ export function Hero({ homepage }: { homepage: Homepage }) {
           >
             <span className="inline-flex items-center gap-2">
               <Star className="size-4 fill-gold text-gold" aria-hidden="true" />
-              <strong className="text-cream">{SITE.google.rating}</strong>{" "}
+              <strong className="text-cream">{settings?.googleRating}</strong>{" "}
               {t("trustGoogleRating")}
             </span>
             <span className="text-cream/30" aria-hidden="true">
               ·
             </span>
-            <span>{t("trustReviewCount")}</span>
+            <span>{settings?.googleReviewCount} {t("trustReviewCount")}</span>
             <span className="text-cream/30" aria-hidden="true">
               ·
             </span>

@@ -6,7 +6,7 @@ import { Services } from "@/components/home/Services";
 import { StorySection } from "@/components/home/StorySection";
 import { ReviewsCarousel } from "@/components/home/ReviewsCarousel";
 import { VisitUs } from "@/components/home/VisitUs";
-import { getCategories, getHomepage, getServices, getTestimonials } from "@/sanity/fetch";
+import { getCategories, getHomepage, getServices, getSiteSettings, getTestimonials } from "@/sanity/fetch";
 import type { Locale } from "@/i18n/routing";
 
 export default async function HomePage({
@@ -17,11 +17,12 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [homepage, categories, services, testimonials] = await Promise.all([
+  const [homepage, categories, services, testimonials, settings] = await Promise.all([
     getHomepage(),
     getCategories(),
     getServices(),
     getTestimonials(),
+    getSiteSettings(),
   ]);
 
   const featuredCategories =
@@ -41,13 +42,13 @@ export default async function HomePage({
 
   return (
     <>
-      <Hero homepage={homepage} />
+      <Hero homepage={homepage} settings={settings} />
       <FeaturedCollections categories={featuredCategories} />
       {featuredProducts.length > 0 && <FeaturedProducts products={featuredProducts} />}
       <Services services={featuredServices} />
       <StorySection homepage={homepage} />
-      <ReviewsCarousel testimonials={featuredTestimonials} />
-      <VisitUs />
+      <ReviewsCarousel testimonials={featuredTestimonials} settings={settings} />
+      <VisitUs settings={settings} />
     </>
   );
 }

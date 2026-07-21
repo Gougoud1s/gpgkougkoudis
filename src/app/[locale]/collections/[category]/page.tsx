@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProductFilters } from "@/components/product/ProductFilters";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
-import { getCategoryBySlug } from "@/sanity/fetch";
+import { getCategoryBySlug, getSiteSettings } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
-import { SITE } from "@/lib/site";
 import type { Locale } from "@/i18n/routing";
+import { localizedMetadata } from "@/lib/seo";
 
 export async function generateMetadata({
   params,
@@ -18,10 +18,13 @@ export async function generateMetadata({
   const cat = await getCategoryBySlug(category);
   if (!cat) return { title: "Not found" };
   const title = loc(cat.title, locale);
-  return {
+  return localizedMetadata({
+    locale,
+    path: `collections/${category}`,
     title,
     description: loc(cat.description, locale),
-  };
+    images: [cat.image?.asset?.url || ""],
+  });
 }
 
 export default async function CategoryPage({
@@ -32,16 +35,18 @@ export default async function CategoryPage({
   const { locale, category } = await params;
   setRequestLocale(locale);
 
-  const cat = await getCategoryBySlug(category);
+  const [cat, settings] = await Promise.all([getCategoryBySlug(category), getSiteSettings()]);
   if (!cat) notFound();
 
   const title = loc(cat.title, locale);
   const subtitle = loc(cat.description, locale);
+  const td = await getTranslations({ locale, namespace: "dynamic" });
+  const siteUrl = settings.siteUrl || "http://localhost:3000";
 
   return (
     <>
       <PageHeader
-        eyebrow={locale === "en" ? "Collection" : "Συλλογή"}
+        eyebrow={td("collection")}
         title={title}
         subtitle={subtitle}
       />
@@ -55,9 +60,7 @@ export default async function CategoryPage({
             />
           ) : (
             <div className="py-24 text-center text-stone">
-              {locale === "en"
-                ? "Coming soon. Please contact us to enquire about this collection."
-                : "Σύντομα κοντά σας. Επικοινωνήστε μαζί μας για περισσότερες πληροφορίες."}
+              {td("comingSoon")}
             </div>
           )}
         </Container>
@@ -65,9 +68,9 @@ export default async function CategoryPage({
 
       <BreadcrumbJsonLd
         items={[
-          { name: "Home", url: `${SITE.url}/${locale}` },
-          { name: "Collections", url: `${SITE.url}/${locale}/collections` },
-          { name: title, url: `${SITE.url}/${locale}/collections/${category}` },
+          { name: td("backHome"), url: `${siteUrl}/${locale}` },
+          { name: td("allCollections"), url: `${siteUrl}/${locale}/collections` },
+          { name: title, url: `${siteUrl}/${locale}/collections/${category}` },
         ]}
       />
     </>

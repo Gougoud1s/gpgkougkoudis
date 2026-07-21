@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ProductCard } from "./ProductCard";
 import { cn } from "@/lib/utils";
-import type { Locale as L, Product } from "@/sanity/types";
+import type { Product } from "@/sanity/types";
 
 type FilterState = {
   material: string[];
@@ -33,7 +33,7 @@ export function ProductFilters({
 }) {
   const t = useTranslations("collections");
   const tCommon = useTranslations("common");
-  const locale = useLocale() as L;
+  const td = useTranslations("dynamic");
   const [filters, setFilters] = useState<FilterState>(initial);
   const [open, setOpen] = useState(false);
 
@@ -125,7 +125,7 @@ export function ProductFilters({
           {Object.entries(counts.material).map(([value, count]) => (
             <CheckboxRow
               key={value}
-              label={materialLabel(value, locale)}
+              label={td(`materials.${value}` as never)}
               count={count}
               checked={filters.material.includes(value)}
               onChange={() => toggle("material", value)}
@@ -149,7 +149,7 @@ export function ProductFilters({
           {Object.entries(counts.stone).map(([value, count]) => (
             <CheckboxRow
               key={value}
-              label={stoneLabel(value, locale)}
+              label={td(`stones.${value}` as never)}
               count={count}
               checked={filters.stone.includes(value)}
               onChange={() => toggle("stone", value)}
@@ -159,7 +159,7 @@ export function ProductFilters({
 
         <FilterGroup label={t("filterPrice")}>
           {[
-            { v: "all", l: locale === "en" ? "All prices" : "Όλες" },
+            { v: "all", l: td("priceAll") },
             { v: "under500", l: "< 500€" },
             { v: "500-1500", l: "500€ – 1500€" },
             { v: "over1500", l: "> 1500€" },
@@ -185,7 +185,7 @@ export function ProductFilters({
             {Object.entries(counts.occasion).map(([value, count]) => (
               <CheckboxRow
                 key={value}
-                label={occasionLabel(value, locale)}
+                label={td(`occasionLabels.${value}` as never)}
                 count={count}
                 checked={filters.occasion.includes(value)}
                 onChange={() => toggle("occasion", value)}
@@ -197,7 +197,7 @@ export function ProductFilters({
         {open && (
           <div className="mt-6 lg:hidden">
             <Button onClick={() => setOpen(false)} variant="primary" className="w-full">
-              {filtered.length} αποτελέσματα
+              {td("results", { count: filtered.length })}
             </Button>
           </div>
         )}
@@ -206,7 +206,7 @@ export function ProductFilters({
       <div className="lg:col-span-9">
         <div className="flex items-center justify-between mb-6">
           <p className="text-sm text-stone">
-            {filtered.length} {filtered.length === 1 ? "αποτέλεσμα" : "αποτελέσματα"}
+            {td("results", { count: filtered.length })}
           </p>
           <button
             type="button"
@@ -302,39 +302,4 @@ function countByArray(products: Product[], key: keyof Product) {
     }
   }
   return counts;
-}
-
-function materialLabel(v: string, locale: L) {
-  const map: Record<string, [string, string]> = {
-    gold: ["Χρυσός", "Gold"],
-    "white-gold": ["Λευκόχρυσος", "White Gold"],
-    "rose-gold": ["Ροζ Χρυσός", "Rose Gold"],
-    silver: ["Ασήμι", "Silver"],
-    platinum: ["Πλατίνα", "Platinum"],
-  };
-  return map[v]?.[locale === "en" ? 1 : 0] ?? v;
-}
-function stoneLabel(v: string, locale: L) {
-  const map: Record<string, [string, string]> = {
-    diamond: ["Διαμάντι", "Diamond"],
-    sapphire: ["Ζαφείρι", "Sapphire"],
-    ruby: ["Ρουμπίνι", "Ruby"],
-    emerald: ["Σμαράγδι", "Emerald"],
-    pearl: ["Μαργαριτάρι", "Pearl"],
-    zircon: ["Ζιργκόν", "Zircon"],
-    other: ["Άλλο", "Other"],
-    none: ["Χωρίς πέτρα", "No stone"],
-  };
-  return map[v]?.[locale === "en" ? 1 : 0] ?? v;
-}
-function occasionLabel(v: string, locale: L) {
-  const map: Record<string, [string, string]> = {
-    everyday: ["Καθημερινό", "Everyday"],
-    wedding: ["Γάμος", "Wedding"],
-    engagement: ["Αρραβώνας", "Engagement"],
-    gift: ["Δώρο", "Gift"],
-    anniversary: ["Επέτειος", "Anniversary"],
-    christening: ["Βάπτιση", "Christening"],
-  };
-  return map[v]?.[locale === "en" ? 1 : 0] ?? v;
 }
