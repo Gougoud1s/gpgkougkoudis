@@ -448,7 +448,7 @@ async function main() {
     address: { el: "Σιρράκου 85-87, Πετρούπολη 131 23", en: "Sirrakou 85-87, Petroupoli 131 23" },
     social: {
       facebook: "https://www.facebook.com/gpgkougkoudis",
-      instagram: "https://www.instagram.com/gp_kougkoudis",
+      instagram: "https://www.instagram.com/gp.gougoudis",
       google: "https://g.page/gpgkougkoudis",
     },
     hours: {

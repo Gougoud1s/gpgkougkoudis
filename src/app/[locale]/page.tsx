@@ -46,10 +46,10 @@ export default async function HomePage({
       <Hero homepage={homepage} settings={settings} />
       <FeaturedCollections categories={featuredCategories} />
       {featuredProducts.length > 0 && <FeaturedProducts products={featuredProducts} />}
+      <InstagramSection homepage={homepage} settings={settings} locale={locale} />
       <Services services={featuredServices} />
       <StorySection homepage={homepage} />
       <ReviewsCarousel testimonials={featuredTestimonials} settings={settings} />
-      <InstagramSection homepage={homepage} settings={settings} locale={locale} />
       <VisitUs settings={settings} />
     </>
   );

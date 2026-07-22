@@ -15,7 +15,7 @@ export async function InstagramSection({
   settings: SiteSettings;
   locale: Locale;
 }) {
-  const profileUrl = settings.social?.instagram || "https://www.instagram.com/gp_kougkoudis";
+  const profileUrl = settings.social?.instagram || "https://www.instagram.com/gp.gougoudis";
   const posts = await getInstagramPosts(homepage, locale, profileUrl);
   if (!posts.length) return null;
 
@@ -33,7 +33,7 @@ export async function InstagramSection({
           </div>
           <a href={profileUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 self-start border-b border-gold pb-2 text-sm uppercase tracking-[0.16em] text-charcoal smooth hover:text-gold-dark md:self-auto">
             <InstagramIcon className="size-4" />
-            @gp_kougkoudis
+            @gp.gougoudis
             <ArrowUpRight className="size-4" aria-hidden="true" />
           </a>
         </div>
