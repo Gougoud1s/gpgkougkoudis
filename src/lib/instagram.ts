@@ -8,6 +8,24 @@ export type InstagramPost = {
   caption: string;
 };
 
+export type InstagramProfile = {
+  name: string;
+  username: string;
+  imageUrl?: string;
+  mediaCount?: number;
+  followersCount?: number;
+  followingCount?: number;
+};
+
+type GraphProfile = {
+  name?: string;
+  username?: string;
+  profile_picture_url?: string;
+  media_count?: number;
+  followers_count?: number;
+  follows_count?: number;
+};
+
 type GraphMedia = {
   id: string;
   caption?: string;
@@ -16,6 +34,36 @@ type GraphMedia = {
   thumbnail_url?: string;
   permalink?: string;
 };
+
+export async function getInstagramProfile(): Promise<InstagramProfile> {
+  const fallback = { name: "GP GOUGOUDIS", username: "gp.gougoudis" };
+  const token = process.env.INSTAGRAM_ACCESS_TOKEN;
+  const userId = process.env.INSTAGRAM_USER_ID;
+  if (!token) return fallback;
+
+  const base = userId
+    ? `https://graph.facebook.com/v22.0/${userId}`
+    : "https://graph.instagram.com/me";
+  const url = new URL(base);
+  url.searchParams.set("fields", "name,username,profile_picture_url,media_count,followers_count,follows_count");
+  url.searchParams.set("access_token", token);
+
+  try {
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    if (!response.ok) return fallback;
+    const profile = await response.json() as GraphProfile;
+    return {
+      name: profile.name || fallback.name,
+      username: profile.username || fallback.username,
+      imageUrl: profile.profile_picture_url,
+      mediaCount: profile.media_count,
+      followersCount: profile.followers_count,
+      followingCount: profile.follows_count,
+    };
+  } catch {
+    return fallback;
+  }
+}
 
 export async function getInstagramPosts(
   homepage: Homepage,

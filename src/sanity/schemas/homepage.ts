@@ -57,6 +57,19 @@ export const homepage = defineType({
     localizedString("instagramTitle", "Instagram — τίτλος"),
     localizedText("instagramText", "Instagram — κείμενο"),
     defineField({
+      name: "instagramProfile",
+      title: "Instagram — προφίλ & μετρήσεις",
+      type: "object",
+      fields: [
+        defineField({ name: "displayName", type: "string", title: "Όνομα προφίλ" }),
+        defineField({ name: "username", type: "string", title: "Username (χωρίς @)" }),
+        defineField({ name: "profileImage", type: "image", title: "Εικόνα προφίλ", options: { hotspot: true } }),
+        defineField({ name: "postCount", type: "number", title: "Δημοσιεύσεις", validation: (Rule) => Rule.min(0).integer() }),
+        defineField({ name: "followersCount", type: "number", title: "Ακόλουθοι", validation: (Rule) => Rule.min(0).integer() }),
+        defineField({ name: "followingCount", type: "number", title: "Ακολουθεί", validation: (Rule) => Rule.min(0).integer() }),
+      ],
+    }),
+    defineField({
       name: "instagramPosts",
       title: "Instagram — εφεδρικές φωτογραφίες",
       description: "Εμφανίζονται όταν δεν είναι συνδεδεμένο Instagram access token.",

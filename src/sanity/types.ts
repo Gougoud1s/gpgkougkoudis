@@ -110,6 +110,14 @@ export type Homepage = {
   storyImage?: SanityImage;
   instagramTitle?: LocalizedString;
   instagramText?: LocalizedText;
+  instagramProfile?: {
+    displayName?: string;
+    username?: string;
+    profileImage?: SanityImage;
+    postCount?: number;
+    followersCount?: number;
+    followingCount?: number;
+  };
   instagramPosts?: Array<{
     _key?: string;
     image?: SanityImage;
