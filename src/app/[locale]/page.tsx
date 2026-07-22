@@ -6,6 +6,7 @@ import { Services } from "@/components/home/Services";
 import { StorySection } from "@/components/home/StorySection";
 import { ReviewsCarousel } from "@/components/home/ReviewsCarousel";
 import { VisitUs } from "@/components/home/VisitUs";
+import { InstagramSection } from "@/components/home/InstagramSection";
 import { getCategories, getHomepage, getServices, getSiteSettings, getTestimonials } from "@/sanity/fetch";
 import type { Locale } from "@/i18n/routing";
 
@@ -48,6 +49,7 @@ export default async function HomePage({
       <Services services={featuredServices} />
       <StorySection homepage={homepage} />
       <ReviewsCarousel testimonials={featuredTestimonials} settings={settings} />
+      <InstagramSection homepage={homepage} settings={settings} locale={locale} />
       <VisitUs settings={settings} />
     </>
   );

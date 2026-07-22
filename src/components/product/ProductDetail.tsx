@@ -17,14 +17,12 @@ export function ProductDetail({
   categorySlug,
   categoryTitle,
   phone,
-  whatsapp,
   address,
 }: {
   product: Product;
   categorySlug: string;
   categoryTitle: string;
   phone: string;
-  whatsapp: string;
   address: string;
 }) {
   const locale = useLocale() as L;
@@ -100,11 +98,8 @@ export function ProductDetail({
           </dl>
 
           <ProductCtas
-            productTitle={loc(product.title, locale)}
-            productSku={product.sku}
             onReserveClick={() => setShowReservation(true)}
             phone={phone}
-            whatsapp={whatsapp}
           />
 
           {showReservation && (

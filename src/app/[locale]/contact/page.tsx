@@ -5,14 +5,13 @@ import {
   Mail,
   Clock,
   Navigation,
-  MessageCircle,
 } from "lucide-react";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/SocialIcons";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { mailtoLink, mapsDirectionsLink, telLink, whatsappLink } from "@/lib/utils";
+import { mailtoLink, mapsDirectionsLink, telLink } from "@/lib/utils";
 import type { Locale } from "@/i18n/routing";
 import { getSiteSettings } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
@@ -42,7 +41,6 @@ export default async function ContactPage({
   const address = loc(settings.address, locale);
   const phoneDisplay = settings.phoneDisplay || "";
   const phoneTel = settings.phoneTel || "";
-  const whatsapp = settings.whatsapp || "";
   const email = settings.email || "";
   const social = settings.social || {};
   const hours = settings.hours || {};
@@ -92,17 +90,6 @@ export default async function ContactPage({
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <a
-                  href={whatsappLink(undefined, whatsapp)}
-                  target="_blank"
-                  rel="noreferrer"
-                  data-event="contact-whatsapp"
-                >
-                  <Button variant="gold" size="md">
-                    <MessageCircle className="size-4" aria-hidden="true" />
-                    WhatsApp
-                  </Button>
-                </a>
                 <a
                   href={mapsDirectionsLink(address.replace(/\n/g, ", "))}
                   target="_blank"

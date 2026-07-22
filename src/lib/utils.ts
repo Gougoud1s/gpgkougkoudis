@@ -14,12 +14,6 @@ export function formatPriceEUR(value: number | null | undefined) {
   }).format(value);
 }
 
-export function whatsappLink(message: string | undefined, phone: string) {
-  const cleanPhone = phone.replace(/\D/g, "");
-  const msg = message ? `?text=${encodeURIComponent(message)}` : "";
-  return `https://wa.me/${cleanPhone}${msg}`;
-}
-
 export function telLink(phone: string) {
   return `tel:${phone}`;
 }

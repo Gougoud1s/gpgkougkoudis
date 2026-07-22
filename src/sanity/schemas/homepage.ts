@@ -54,6 +54,24 @@ export const homepage = defineType({
       type: "image",
       options: { hotspot: true },
     }),
+    localizedString("instagramTitle", "Instagram — τίτλος"),
+    localizedText("instagramText", "Instagram — κείμενο"),
+    defineField({
+      name: "instagramPosts",
+      title: "Instagram — εφεδρικές φωτογραφίες",
+      description: "Εμφανίζονται όταν δεν είναι συνδεδεμένο Instagram access token.",
+      type: "array",
+      validation: (Rule) => Rule.max(6),
+      of: [{
+        type: "object",
+        fields: [
+          defineField({ name: "image", type: "image", title: "Εικόνα", options: { hotspot: true }, validation: (Rule) => Rule.required() }),
+          defineField({ name: "url", type: "url", title: "Σύνδεσμος Instagram" }),
+          localizedText("caption", "Λεζάντα"),
+        ],
+        preview: { select: { title: "caption.el", media: "image" } },
+      }],
+    }),
   ],
   preview: { prepare: () => ({ title: "Αρχική σελίδα" }) },
 });

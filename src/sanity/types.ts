@@ -108,6 +108,14 @@ export type Homepage = {
   storyTitle?: LocalizedString;
   storyText?: LocalizedText;
   storyImage?: SanityImage;
+  instagramTitle?: LocalizedString;
+  instagramText?: LocalizedText;
+  instagramPosts?: Array<{
+    _key?: string;
+    image?: SanityImage;
+    url?: string;
+    caption?: LocalizedText;
+  }>;
 };
 
 export type SiteSettings = {
@@ -117,7 +125,6 @@ export type SiteSettings = {
   logoTagline?: LocalizedText;
   phoneDisplay?: string;
   phoneTel?: string;
-  whatsapp?: string;
   email?: string;
   address?: LocalizedString;
   social?: {

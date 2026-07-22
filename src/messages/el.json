@@ -7,7 +7,6 @@
     "city": "Πετρούπολη, Αθήνα",
     "phoneDisplay": "210 502 3076",
     "phoneTel": "+302105023076",
-    "whatsapp": "+302105023076",
     "email": "info@gpkougkoudis.gr"
   },
   "nav": {
@@ -19,7 +18,6 @@
     "reviews": "Κριτικές",
     "contact": "Επικοινωνία",
     "callUs": "Καλέστε μας",
-    "whatsapp": "WhatsApp",
     "menu": "Μενού",
     "close": "Κλείσιμο"
   },
@@ -113,7 +111,6 @@
     "weight": "Βάρος",
     "dimensions": "Διαστάσεις",
     "sku": "Κωδικός",
-    "askOnWhatsapp": "Ρωτήστε στο WhatsApp",
     "reserveForViewing": "Κράτηση για δοκιμή",
     "callUs": "Καλέστε μας",
     "relatedItems": "Παρόμοια κομμάτια"

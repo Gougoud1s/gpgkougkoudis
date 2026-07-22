@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Phone, MessageCircle, Menu, X } from "lucide-react";
+import { Phone, Menu, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Button } from "@/components/ui/Button";
-import { cn, telLink, whatsappLink } from "@/lib/utils";
+import { cn, telLink } from "@/lib/utils";
 import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 
 const NAV_ITEMS = [
@@ -25,7 +25,6 @@ export function Header({ settings }: { settings?: SiteSettings }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const phoneTel = settings?.phoneTel || "";
-  const whatsapp = settings?.whatsapp || "";
   const navItems = settings?.navigation?.length
     ? settings.navigation.map((item) => ({ href: item.href || "/", label: loc(item.label, locale) }))
     : NAV_ITEMS.map((item) => ({ href: item.href, label: t(item.labelKey) }));
@@ -87,18 +86,6 @@ export function Header({ settings }: { settings?: SiteSettings }) {
               <Button variant="ghost" size="sm" aria-label={t("callUs")}>
                 <Phone className="size-4" aria-hidden="true" />
                 <span className="hidden xl:inline">{t("callUs")}</span>
-              </Button>
-            </a>
-            <a
-              href={whatsappLink(undefined, whatsapp)}
-              target="_blank"
-              rel="noreferrer"
-              className="hidden md:inline-flex"
-              data-event="header-whatsapp"
-            >
-              <Button variant="primary" size="sm">
-                <MessageCircle className="size-4" aria-hidden="true" />
-                <span className="hidden xl:inline">{t("whatsapp")}</span>
               </Button>
             </a>
 
@@ -163,27 +150,15 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             ))}
           </nav>
           <div className="px-5 py-5 border-t border-line space-y-3">
-            <div className="flex gap-2">
+            <div>
               <a
                 href={telLink(phoneTel)}
-                className="flex-1"
+                className="block"
                 data-event="mobile-call"
               >
                 <Button variant="outline" size="md" className="w-full">
                   <Phone className="size-4" aria-hidden="true" />
                   {t("callUs")}
-                </Button>
-              </a>
-              <a
-                href={whatsappLink(undefined, whatsapp)}
-                target="_blank"
-                rel="noreferrer"
-                className="flex-1"
-                data-event="mobile-whatsapp"
-              >
-                <Button variant="primary" size="md" className="w-full">
-                  <MessageCircle className="size-4" aria-hidden="true" />
-                  {t("whatsapp")}
                 </Button>
               </a>
             </div>

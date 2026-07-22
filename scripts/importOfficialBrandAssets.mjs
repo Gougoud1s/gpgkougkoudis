@@ -28,7 +28,7 @@ async function upload(relativePath, label) {
 }
 
 async function main() {
-  const logo = await upload("public/brand/gougoudis-logo.jpg", "Gougoudis Gioielli logo");
+  const logo = await upload("public/brand/gougoudis-logo-transparent.png", "Gougoudis Gioielli logo");
   const images = {};
   for (const number of ["01", "02", "03", "05", "06", "07", "08"]) {
     images[number] = await upload(

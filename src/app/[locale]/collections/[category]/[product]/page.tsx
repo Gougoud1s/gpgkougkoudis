@@ -51,7 +51,6 @@ export default async function ProductPage({
         categorySlug={category}
         categoryTitle={categoryTitle}
         phone={settings.phoneTel || ""}
-        whatsapp={settings.whatsapp || ""}
         address={loc(settings.address, locale)}
       />
 

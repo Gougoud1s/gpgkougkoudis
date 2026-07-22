@@ -444,7 +444,6 @@ async function main() {
     tagline: { el: "Κοσμηματοπωλείο στην Πετρούπολη Αττικής.", en: "Jewelry store in Petroupoli, Athens." },
     phoneDisplay: "210 502 3076",
     phoneTel: "+302105023076",
-    whatsapp: "+302105023076",
     email: "info@gpkougkoudis.gr",
     address: { el: "Σιρράκου 85-87, Πετρούπολη 131 23", en: "Sirrakou 85-87, Petroupoli 131 23" },
     social: {

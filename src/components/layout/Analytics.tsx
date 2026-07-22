@@ -21,7 +21,7 @@ function getStoredConsent() {
 
 /**
  * Loads GA4 + Microsoft Clarity ONLY after explicit user consent.
- * Tracks WhatsApp / call / form / directions clicks via [data-event] attribute.
+ * Tracks call / form / directions clicks via [data-event] attribute.
  */
 export function Analytics() {
   const stored = useSyncExternalStore(

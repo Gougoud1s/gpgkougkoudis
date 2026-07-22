@@ -1,11 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { MapPin, Phone, MessageCircle, Clock, Navigation } from "lucide-react";
+import { MapPin, Phone, Clock, Navigation } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
-import { mapsDirectionsLink, telLink, whatsappLink } from "@/lib/utils";
+import { mapsDirectionsLink, telLink } from "@/lib/utils";
 import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 import { useLocale } from "next-intl";
 
@@ -17,7 +17,6 @@ export function VisitUs({ settings }: { settings?: SiteSettings }) {
   const address = loc(settings?.address, locale);
   const phoneDisplay = settings?.phoneDisplay || "";
   const phoneTel = settings?.phoneTel || "";
-  const whatsapp = settings?.whatsapp || "";
 
   return (
     <section className="py-24 md:py-32 bg-cream-2/40">
@@ -68,17 +67,6 @@ export function VisitUs({ settings }: { settings?: SiteSettings }) {
                 <Button variant="primary" size="md">
                   <Phone className="size-4" aria-hidden="true" />
                   {phoneDisplay}
-                </Button>
-              </a>
-              <a
-                href={whatsappLink(undefined, whatsapp)}
-                target="_blank"
-                rel="noreferrer"
-                data-event="visit-whatsapp"
-              >
-                <Button variant="gold" size="md">
-                  <MessageCircle className="size-4" aria-hidden="true" />
-                  WhatsApp
                 </Button>
               </a>
               <a

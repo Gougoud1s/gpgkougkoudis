@@ -4,6 +4,7 @@ export const homepageQuery = groq`*[_type == "homepage"][0]{
   ...,
   "heroImage": heroImage{ ..., asset->{url, metadata{lqip, dimensions}} },
   "storyImage": storyImage{ ..., asset->{url, metadata{lqip, dimensions}} },
+  instagramPosts[]{..., image{..., asset->{url, metadata{lqip, dimensions}}}},
   featuredCollections[]->{ _id, title, slug, image, description },
   featuredProducts[]->{
     _id, title, slug, sku, price, priceOnRequest,

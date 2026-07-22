@@ -6,7 +6,6 @@ import { SanityImage } from "@/components/ui/SanityImage";
 
 export function Logo({
   className,
-  variant = "dark",
   settings,
 }: {
   className?: string;
@@ -24,13 +23,12 @@ export function Logo({
       aria-label={`Gougoudis Gioielli — ${t("backHome")}`}
     >
       <SanityImage
-        image={settings?.logo || { asset: { url: "/brand/gougoudis-logo.jpg" } }}
+        image={settings?.logo || { asset: { url: "/brand/gougoudis-logo-transparent.png" } }}
         alt="Gougoudis Gioielli"
         width={600}
         height={315}
         className={cn(
-          "h-12 w-auto object-contain md:h-14",
-          variant === "light" && "mix-blend-multiply"
+          "h-12 w-auto object-contain md:h-14"
         )}
       />
     </Link>

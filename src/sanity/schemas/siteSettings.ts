@@ -13,7 +13,6 @@ export const siteSettings = defineType({
     localizedText("logoTagline", "Υπότιτλος λογοτύπου"),
     defineField({ name: "phoneDisplay", type: "string", title: "Τηλέφωνο (εμφάνιση)" }),
     defineField({ name: "phoneTel", type: "string", title: "Τηλέφωνο (tel: link)" }),
-    defineField({ name: "whatsapp", type: "string", title: "WhatsApp" }),
     defineField({ name: "email", type: "string", title: "Email" }),
     localizedString("address", "Διεύθυνση"),
     localizedText("footerDescription", "Περιγραφή υποσέλιδου"),

@@ -7,7 +7,6 @@
     "city": "Petroupoli, Athens",
     "phoneDisplay": "+30 210 502 3076",
     "phoneTel": "+302105023076",
-    "whatsapp": "+302105023076",
     "email": "info@gpkougkoudis.gr"
   },
   "nav": {
@@ -19,7 +18,6 @@
     "reviews": "Reviews",
     "contact": "Contact",
     "callUs": "Call us",
-    "whatsapp": "WhatsApp",
     "menu": "Menu",
     "close": "Close"
   },
@@ -113,7 +111,6 @@
     "weight": "Weight",
     "dimensions": "Dimensions",
     "sku": "SKU",
-    "askOnWhatsapp": "Ask on WhatsApp",
     "reserveForViewing": "Reserve for viewing",
     "callUs": "Call us",
     "relatedItems": "Related pieces"
