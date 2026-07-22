@@ -15,7 +15,7 @@ function getClient(): SanityClient | null {
       projectId,
       dataset,
       apiVersion,
-      useCdn: process.env.NODE_ENV === "production",
+      useCdn: false,
       perspective: "published",
     });
   }
@@ -27,9 +27,8 @@ export const client = {
   fetch: async <T>(query: string, params: Record<string, unknown> = {}) => {
     const c = getClient();
     if (!c) return null as T;
-    // Editorial content should be visible immediately after publishing in
-    // Studio. Sanity's CDN can still serve the upstream response in
-    // production, while Next.js must not freeze it in the route cache.
+    // Editorial changes and deletions should be visible immediately after
+    // publishing, so bypass both Sanity's CDN and Next.js route caching.
     return c.fetch<T>(query, params, { cache: "no-store" });
   },
 };
