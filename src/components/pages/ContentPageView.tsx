@@ -21,16 +21,13 @@ export async function ContentPageView({ page, locale }: { page: ContentPage; loc
   return (
     <>
       {hasHero ? (
-        <section className="relative min-h-[75vh] flex items-end overflow-hidden bg-charcoal text-cream">
-          <div className="absolute inset-0">
-            <SanityImage image={page.heroImage} fill priority sizes="100vw" alt={loc(page.title, locale)} className="opacity-65" />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-transparent" />
+        <section className="overflow-hidden border-b border-gold/15 bg-[#fbf7ef]">
+          <div className="grid min-h-[68svh] lg:grid-cols-2">
+            <Container className="flex items-center py-20 lg:py-28">
+              <div className="max-w-xl"><Eyebrow>{loc(page.eyebrow, locale)}</Eyebrow><h1 className="display-serif mt-6 text-balance text-charcoal">{loc(page.title, locale)}</h1>{page.subtitle && <p className="mt-6 text-base leading-relaxed text-stone md:text-xl">{loc(page.subtitle, locale)}</p>}<span className="gold-rule mt-8" aria-hidden="true" /></div>
+            </Container>
+            <div className="relative min-h-[46svh] bg-white"><SanityImage image={page.heroImage} fill priority sizes="(min-width:1024px) 50vw, 100vw" alt={loc(page.title, locale)} className="object-contain p-5 md:p-10" /><div className="absolute inset-y-0 left-0 hidden w-20 bg-gradient-to-r from-[#fbf7ef] to-transparent lg:block" /></div>
           </div>
-          <Container className="relative z-10 pb-20 lg:pb-28 pt-32">
-            <Eyebrow className="text-gold-light">{loc(page.eyebrow, locale)}</Eyebrow>
-            <h1 className="display-serif text-cream mt-6 text-balance max-w-4xl">{loc(page.title, locale)}</h1>
-            {page.subtitle && <p className="mt-6 text-cream/80 text-base md:text-xl leading-relaxed max-w-2xl">{loc(page.subtitle, locale)}</p>}
-          </Container>
         </section>
       ) : (
         <PageHeader eyebrow={loc(page.eyebrow, locale)} title={loc(page.title, locale)} subtitle={loc(page.subtitle, locale)} />
@@ -68,7 +65,7 @@ export async function ContentPageView({ page, locale }: { page: ContentPage; loc
         }
 
         if (section.kind === "appointment") return (
-          <section key={key} id="book" className="py-20 md:py-28 bg-charcoal text-cream"><Container><div className="grid lg:grid-cols-2 gap-12 lg:gap-20"><div><Eyebrow className="text-gold-light">{loc(section.eyebrow, locale)}</Eyebrow><h2 className="display-serif text-cream mt-4">{title}</h2><p className="mt-6 text-cream/80 leading-relaxed text-lg">{text}</p></div><div className="bg-cream p-7 md:p-9 text-charcoal"><AppointmentForm times={settings.appointmentTimes || []} attendees={settings.attendeeOptions || []} /></div></div></Container></section>
+          <section key={key} id="book" className="border-y border-gold/15 bg-[#fbf7ef] py-20 md:py-28"><Container><div className="grid lg:grid-cols-2 gap-12 lg:gap-20"><div><Eyebrow>{loc(section.eyebrow, locale)}</Eyebrow><h2 className="display-serif text-charcoal mt-4">{title}</h2><p className="mt-6 text-stone leading-relaxed text-lg">{text}</p></div><div className="border border-gold/20 bg-white p-7 shadow-soft md:p-9 text-charcoal"><AppointmentForm times={settings.appointmentTimes || []} attendees={settings.attendeeOptions || []} /></div></div></Container></section>
         );
 
         return <section key={key} className="py-16 md:py-24"><Container size="narrow"><Eyebrow>{loc(section.eyebrow, locale)}</Eyebrow><h2 className="display-serif mt-4">{title}</h2><p className="mt-6 text-stone leading-relaxed text-lg whitespace-pre-line">{text}</p></Container></section>;

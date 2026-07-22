@@ -21,17 +21,17 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
   const reviewCount = settings?.googleReviewCount;
 
   return (
-    <footer className="bg-charcoal text-cream/85 mt-32">
+    <footer className="mt-32 border-t border-gold/20 bg-[#f7f0e4] text-stone">
       <div className="container-page py-16 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5 space-y-5">
           <Logo variant="light" settings={settings} />
-          <p className="text-sm leading-relaxed text-cream/65 max-w-sm">
+          <p className="text-sm leading-relaxed text-stone max-w-sm">
             {loc(settings?.footerDescription, locale) || loc(settings?.tagline, locale)}
           </p>
           <div className="flex items-center gap-2 text-sm">
             <Star className="size-4 fill-gold text-gold" aria-hidden="true" />
             <span>
-              <strong className="text-cream">{rating}</strong> ·{" "}
+              <strong className="text-charcoal">{rating}</strong> ·{" "}
               {reviewCount} reviews on Google
             </span>
           </div>
@@ -40,7 +40,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
               href={social.facebook}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-cream/20 hover:bg-cream hover:text-charcoal smooth cursor-pointer"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-gold/30 hover:bg-gold hover:text-white smooth cursor-pointer"
               aria-label="Facebook"
             >
               <FacebookIcon className="size-4" />
@@ -49,7 +49,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
               href={social.instagram}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex size-10 items-center justify-center rounded-full border border-cream/20 hover:bg-cream hover:text-charcoal smooth cursor-pointer"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-gold/30 hover:bg-gold hover:text-white smooth cursor-pointer"
               aria-label="Instagram"
             >
               <InstagramIcon className="size-4" />
@@ -58,14 +58,14 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
         </div>
 
         <div className="md:col-span-3">
-          <h4 className="text-cream text-xs uppercase tracking-[0.22em] mb-5">
+          <h4 className="text-gold-dark text-xs uppercase tracking-[0.22em] mb-5">
             {t("shop")}
           </h4>
           <ul className="space-y-3 text-sm">
             <li>
               <Link
                 href="/collections"
-                className="text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 {tNav("collections")}
               </Link>
@@ -73,7 +73,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             <li>
               <Link
                 href="/wedding"
-                className="text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 {tNav("wedding")}
               </Link>
@@ -81,7 +81,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             <li>
               <Link
                 href="/services"
-                className="text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 {tNav("services")}
               </Link>
@@ -89,7 +89,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             <li>
               <Link
                 href="/reviews"
-                className="text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 {tNav("reviews")}
               </Link>
@@ -98,7 +98,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
         </div>
 
         <div className="md:col-span-4">
-          <h4 className="text-cream text-xs uppercase tracking-[0.22em] mb-5">
+          <h4 className="text-gold-dark text-xs uppercase tracking-[0.22em] mb-5">
             {tContact("title")}
           </h4>
           <ul className="space-y-3 text-sm">
@@ -107,7 +107,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
                 href={mapsLink(address.replace(/\n/g, ", "))}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-start gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="flex items-start gap-2 text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 <MapPin className="size-4 mt-0.5 shrink-0" aria-hidden="true" />
                 <span>
@@ -118,7 +118,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             <li>
               <a
                 href={telLink(phoneTel)}
-                className="flex items-center gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="flex items-center gap-2 text-stone hover:text-gold-dark smooth cursor-pointer"
                 data-event="footer-call"
               >
                 <Phone className="size-4 shrink-0" aria-hidden="true" />
@@ -128,7 +128,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             <li>
               <a
                 href={mailtoLink(email)}
-                className="flex items-center gap-2 text-cream/70 hover:text-cream smooth cursor-pointer"
+                className="flex items-center gap-2 text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 <Mail className="size-4 shrink-0" aria-hidden="true" />
                 <span>{email}</span>
@@ -138,8 +138,8 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
         </div>
       </div>
 
-      <div className="border-t border-cream/10">
-        <div className="container-page py-6 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-cream/50">
+      <div className="border-t border-gold/15">
+        <div className="container-page py-6 flex flex-col md:flex-row gap-3 md:items-center md:justify-between text-xs text-stone-2">
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
             © {new Date().getFullYear()} {brand}. {t("rights")}
             <span aria-hidden="true">·</span>
@@ -149,7 +149,7 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
                 href="https://zyxen.gr"
                 target="_blank"
                 rel="noreferrer"
-                className="text-cream/70 hover:text-cream smooth"
+                className="text-stone hover:text-gold-dark smooth"
               >
                 zyxen.gr
               </a>
@@ -157,22 +157,22 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
           </p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             <li>
-              <Link href="/privacy" className="hover:text-cream smooth">
+              <Link href="/privacy" className="hover:text-gold-dark smooth">
                 {t("privacy")}
               </Link>
             </li>
             <li>
-              <Link href="/cookies" className="hover:text-cream smooth">
+              <Link href="/cookies" className="hover:text-gold-dark smooth">
                 {t("cookies")}
               </Link>
             </li>
             <li>
-              <Link href="/terms" className="hover:text-cream smooth">
+              <Link href="/terms" className="hover:text-gold-dark smooth">
                 {t("terms")}
               </Link>
             </li>
             <li>
-              <Link href="/sitemap" className="hover:text-cream smooth">
+              <Link href="/sitemap" className="hover:text-gold-dark smooth">
                 {t("sitemap")}
               </Link>
             </li>

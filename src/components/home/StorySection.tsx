@@ -17,7 +17,7 @@ export function StorySection({ homepage }: { homepage: Homepage }) {
   const text = loc(homepage.storyText, locale) || t("storySubtitle");
 
   return (
-    <section className="py-24 md:py-32 bg-charcoal text-cream">
+    <section className="border-y border-gold/15 bg-[#fbf7ef] py-24 md:py-32">
       <Container>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -25,23 +25,24 @@ export function StorySection({ homepage }: { homepage: Homepage }) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative aspect-[4/5] order-2 lg:order-1"
+            className="relative aspect-[4/3] order-2 overflow-hidden bg-white p-3 shadow-[0_25px_70px_-45px_rgba(120,84,20,0.45)] lg:order-1"
           >
             <SanityImage
               image={homepage.storyImage}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               alt={title}
-              className="object-cover"
+              className="object-contain p-5"
             />
           </motion.div>
 
           <div className="order-1 lg:order-2">
-            <Eyebrow className="text-gold-light">
+            <Eyebrow>
               {t("storyEyebrow")}
             </Eyebrow>
-            <h2 className="display-serif mt-4 text-cream">{title}</h2>
-            <p className="mt-6 text-cream/80 leading-relaxed text-base md:text-lg">
+            <h2 className="display-serif mt-4 text-charcoal">{title}</h2>
+            <span className="gold-rule mt-6" aria-hidden="true" />
+            <p className="mt-6 text-stone leading-relaxed text-base md:text-lg">
               {text}
             </p>
             <Link

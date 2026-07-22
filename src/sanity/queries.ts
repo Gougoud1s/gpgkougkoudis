@@ -63,7 +63,7 @@ export const allFaqsQuery = groq`*[_type == "faq"] | order(order asc){
   _id, question, answer, category
 }`;
 
-export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]`;
+export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{..., logo{..., asset->{url, metadata{lqip, dimensions}}}}`;
 
 export const contentPageByRouteQuery = groq`*[_type == "contentPage" && route == $route][0]{
   ...,

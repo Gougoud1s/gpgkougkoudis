@@ -8,6 +8,7 @@ export const siteSettings = defineType({
   fields: [
     defineField({ name: "siteUrl", type: "url", title: "Κύριο URL ιστοσελίδας" }),
     localizedString("brand", "Όνομα επιχείρησης"),
+    defineField({ name: "logo", type: "image", title: "Λογότυπο", options: { hotspot: true }, fields: [defineField({ name: "alt", type: "string", title: "Εναλλακτικό κείμενο" })] }),
     localizedText("tagline", "Tagline"),
     localizedText("logoTagline", "Υπότιτλος λογοτύπου"),
     defineField({ name: "phoneDisplay", type: "string", title: "Τηλέφωνο (εμφάνιση)" }),

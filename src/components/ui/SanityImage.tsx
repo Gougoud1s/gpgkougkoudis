@@ -41,7 +41,7 @@ export function SanityImage({
 
   // For unsplash / direct URLs we can't go through urlFor, so fall back to <Image>.
   const directUrl = image.asset.url ?? "";
-  const isDirect = /^https?:\/\//.test(directUrl);
+  const isDirect = /^(https?:\/\/|\/)/.test(directUrl);
 
   let src: string;
   if (isDirect) {

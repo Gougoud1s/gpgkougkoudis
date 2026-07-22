@@ -112,6 +112,7 @@ export type Homepage = {
 
 export type SiteSettings = {
   brand?: LocalizedString;
+  logo?: SanityImage;
   tagline?: LocalizedText;
   logoTagline?: LocalizedText;
   phoneDisplay?: string;

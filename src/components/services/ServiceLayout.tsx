@@ -34,9 +34,9 @@ export async function ServiceLayout({
 
   return (
     <>
-      <section className="bg-charcoal text-cream pt-24 pb-16 md:pt-32 md:pb-24 relative overflow-hidden">
+      <section className="relative overflow-hidden border-b border-gold/15 bg-[#fbf7ef] pt-24 pb-16 md:pt-32 md:pb-24">
         {service.image && (
-          <div className="absolute inset-0 opacity-25">
+          <div className="absolute inset-y-0 right-0 hidden w-1/2 opacity-35 lg:block">
             <SanityImage
               image={service.image}
               fill
@@ -44,16 +44,16 @@ export async function ServiceLayout({
               sizes="100vw"
               alt={title}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink to-ink/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#fbf7ef] via-[#fbf7ef]/70 to-transparent" />
           </div>
         )}
         <Container className="relative z-10">
-          <Eyebrow className="text-gold-light">
+          <Eyebrow>
             {t("service")}
           </Eyebrow>
-          <h1 className="mt-4 text-cream text-balance">{title}</h1>
+          <h1 className="mt-4 text-charcoal text-balance">{title}</h1>
           {tagline && (
-            <p className="mt-5 text-cream/80 text-base md:text-xl max-w-2xl">
+            <p className="mt-5 text-stone text-base md:text-xl max-w-2xl">
               {tagline}
             </p>
           )}
