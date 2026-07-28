@@ -57,7 +57,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             : "bg-cream/80 backdrop-blur-sm"
         )}
       >
-        <div className="container-page flex items-center justify-between gap-6 pb-3 pt-6 lg:hidden">
+        <div className="container-page flex items-center justify-between gap-6 pb-3 pt-10 lg:hidden">
           <Logo settings={settings} imageClassName="h-16 md:h-18" />
 
           <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
           </div>
         </div>
 
-        <div className="container-page relative hidden flex-col items-center pb-4 pt-6 lg:flex">
+        <div className="container-page relative hidden flex-col items-center pb-4 pt-10 lg:flex">
           <Logo settings={settings} className="items-center" imageClassName="lg:h-24" />
 
           <div className="relative mt-3 flex w-full items-center justify-center border-t border-line/70 pt-3">
