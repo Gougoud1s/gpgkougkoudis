@@ -4,6 +4,15 @@ import { routing } from "./routing";
 import { getUiText } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
 
+const RETIRED_UI_TEXT_KEYS = new Set([
+  "common.availableInStore",
+  "common.priceOnRequest",
+  "collections.filterPrice",
+  "dynamic.priceAll",
+  "dynamic.productSku",
+  "product.sku",
+]);
+
 function setNested(target: Record<string, unknown>, path: string, value: string) {
   const parts = path.split(".");
   let cursor = target;
@@ -25,6 +34,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const messages = structuredClone((await import(`../messages/${locale}.json`)).default) as Record<string, unknown>;
   const records = await getUiText();
   for (const record of records) {
+    if (RETIRED_UI_TEXT_KEYS.has(record.key)) continue;
     const value = loc(record.value, locale);
     if (value) setNested(messages, record.key, value);
   }
