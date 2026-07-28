@@ -86,8 +86,7 @@ export function ProductDetail({
 
       {product.related && product.related.length > 0 && (
         <section className="mt-24 md:mt-32 pt-12 border-t border-line">
-          <Eyebrow align="center">{t("relatedItems")}</Eyebrow>
-          <h2 className="display-serif mt-3 text-center mb-12">
+          <h2 className="display-serif text-center mb-12">
             {t("relatedItems")}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 md:gap-x-6 gap-y-12">
