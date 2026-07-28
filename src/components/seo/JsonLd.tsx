@@ -15,7 +15,6 @@ export function LocalBusinessJsonLd({ locale = "el", settings }: { locale?: Loca
     url,
     telephone: settings.phoneTel,
     email: settings.email,
-    priceRange: "€€€",
     address: {
       "@type": "PostalAddress",
       streetAddress: address,
@@ -46,7 +45,6 @@ export function ProductJsonLd({
   image,
   description,
   sku,
-  price,
   url,
   brand,
 }: {
@@ -54,7 +52,6 @@ export function ProductJsonLd({
   image: string;
   description: string;
   sku?: string;
-  price?: number;
   url: string;
   brand: string;
 }) {
@@ -68,15 +65,6 @@ export function ProductJsonLd({
     brand: { "@type": "Brand", name: brand },
     url,
   };
-  if (price) {
-    data.offers = {
-      "@type": "Offer",
-      priceCurrency: "EUR",
-      price,
-      availability: "https://schema.org/InStoreOnly",
-      seller: { "@type": "Organization", name: brand },
-    };
-  }
   return (
     <script
       type="application/ld+json"

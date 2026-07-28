@@ -13,7 +13,6 @@ type FilterState = {
   karat: string[];
   stone: string[];
   occasion: string[];
-  price: "all" | "under500" | "500-1500" | "over1500";
 };
 
 const initial: FilterState = {
@@ -21,7 +20,6 @@ const initial: FilterState = {
   karat: [],
   stone: [],
   occasion: [],
-  price: "all",
 };
 
 export function ProductFilters({
@@ -46,16 +44,6 @@ export function ProductFilters({
         const overlap = (p.occasion ?? []).some((o) => filters.occasion.includes(o));
         if (!overlap) return false;
       }
-      if (filters.price !== "all") {
-        const price = p.price ?? null;
-        if (filters.price === "under500" && (price == null || price >= 500)) return false;
-        if (
-          filters.price === "500-1500" &&
-          (price == null || price < 500 || price > 1500)
-        )
-          return false;
-        if (filters.price === "over1500" && (price == null || price <= 1500)) return false;
-      }
       return true;
     });
   }, [products, filters]);
@@ -70,7 +58,7 @@ export function ProductFilters({
     return result;
   }, [products]);
 
-  function toggle(group: keyof Omit<FilterState, "price">, value: string) {
+  function toggle(group: keyof FilterState, value: string) {
     setFilters((f) => {
       const arr = f[group];
       return {
@@ -84,8 +72,7 @@ export function ProductFilters({
     filters.material.length +
     filters.karat.length +
     filters.stone.length +
-    filters.occasion.length +
-    (filters.price !== "all" ? 1 : 0);
+    filters.occasion.length;
 
   return (
     <div className="grid lg:grid-cols-12 gap-8">
@@ -154,29 +141,6 @@ export function ProductFilters({
               checked={filters.stone.includes(value)}
               onChange={() => toggle("stone", value)}
             />
-          ))}
-        </FilterGroup>
-
-        <FilterGroup label={t("filterPrice")}>
-          {[
-            { v: "all", l: td("priceAll") },
-            { v: "under500", l: "< 500€" },
-            { v: "500-1500", l: "500€ – 1500€" },
-            { v: "over1500", l: "> 1500€" },
-          ].map(({ v, l }) => (
-            <label
-              key={v}
-              className="flex items-center gap-3 py-2 text-sm cursor-pointer"
-            >
-              <input
-                type="radio"
-                name="price"
-                checked={filters.price === v}
-                onChange={() => setFilters((f) => ({ ...f, price: v as FilterState["price"] }))}
-                className="accent-gold"
-              />
-              <span>{l}</span>
-            </label>
           ))}
         </FilterGroup>
 

@@ -9,7 +9,7 @@ import { ProductCtas } from "./ProductCtas";
 import { ReservationForm } from "./ReservationForm";
 import { ProductCard } from "./ProductCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { formatPriceEUR, mapsLink } from "@/lib/utils";
+import { mapsLink } from "@/lib/utils";
 import { loc, type Locale as L, type Product } from "@/sanity/types";
 
 export function ProductDetail({
@@ -43,18 +43,11 @@ export function ProductDetail({
           <Eyebrow>{categoryTitle}</Eyebrow>
           <h1 className="display-serif mt-4">{loc(product.title, locale)}</h1>
 
-          <div className="mt-6 flex items-baseline gap-3">
-            <p className="display-serif text-3xl text-charcoal">
-              {product.priceOnRequest || !product.price
-                ? tc("priceOnRequest")
-                : formatPriceEUR(product.price)}
+          {product.sku && (
+            <p className="mt-6 text-xs uppercase tracking-[0.18em] text-stone-2">
+              {t("sku")}: {product.sku}
             </p>
-            {product.sku && (
-              <span className="text-xs uppercase tracking-[0.18em] text-stone-2">
-                {t("sku")}: {product.sku}
-              </span>
-            )}
-          </div>
+          )}
 
           {product.availableInStore && (
             <a

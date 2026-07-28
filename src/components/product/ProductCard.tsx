@@ -3,7 +3,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { formatPriceEUR } from "@/lib/utils";
 import { loc, type Category, type Locale as L, type Product } from "@/sanity/types";
 
 export function ProductCard({
@@ -14,7 +13,6 @@ export function ProductCard({
   categorySlug?: string;
 }) {
   const locale = useLocale() as L;
-  const tc = useTranslations("common");
   const td = useTranslations("dynamic");
   const slug =
     categorySlug ||
@@ -62,11 +60,6 @@ export function ProductCard({
           </>
         )}
       </div>
-      <p className="mt-2 text-sm text-charcoal">
-        {product.priceOnRequest || !product.price
-          ? tc("priceOnRequest")
-          : formatPriceEUR(product.price)}
-      </p>
     </Link>
   );
 }

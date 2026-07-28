@@ -6,13 +6,11 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { formatPriceEUR } from "@/lib/utils";
 import { loc, type Locale as L, type Product } from "@/sanity/types";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   const locale = useLocale() as L;
   const t = useTranslations("dynamic");
-  const tc = useTranslations("common");
   if (!products?.length) return null;
 
   return (
@@ -60,11 +58,6 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
                 <h3 className="display-serif text-xl md:text-2xl text-charcoal smooth group-hover:text-gold-dark">
                   {loc(product.title, locale)}
                 </h3>
-                <p className="mt-1 text-sm text-stone-2">
-                  {product.priceOnRequest || !product.price
-                    ? tc("priceOnRequest")
-                    : formatPriceEUR(product.price)}
-                </p>
               </Link>
             </motion.div>
           ))}

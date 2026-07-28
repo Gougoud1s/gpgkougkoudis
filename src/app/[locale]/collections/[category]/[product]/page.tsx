@@ -59,7 +59,6 @@ export default async function ProductPage({
         image={data.images?.[0]?.asset?.url ?? ""}
         description={loc(data.description, locale)}
         sku={data.sku}
-        price={data.price}
         url={url}
         brand={loc(settings.brand, locale)}
       />
