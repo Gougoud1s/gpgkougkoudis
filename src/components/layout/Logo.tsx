@@ -1,7 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
-import { loc, type Locale, type SiteSettings } from "@/sanity/types";
+import { useTranslations } from "next-intl";
+import type { SiteSettings } from "@/sanity/types";
 import { SanityImage } from "@/components/ui/SanityImage";
 
 export function Logo({
@@ -19,12 +19,6 @@ export function Logo({
   settings?: SiteSettings;
 }) {
   const t = useTranslations("dynamic");
-  const locale = useLocale() as Locale;
-  const brand = loc(settings?.brand, locale) || "Γ.Π. ΓΚΟΥΓΚΟΥΔΗΣ";
-  const surname =
-    brand
-      .replace(/^(?:Γ\.?\s*Π\.?|G\.?\s*P\.?)\s*/iu, "")
-      .replace(/\s+gioielli$/iu, "") || "ΓΚΟΥΓΚΟΥΔΗΣ";
 
   return (
     <Link
@@ -42,11 +36,11 @@ export function Logo({
             wordmarkClassName
           )}
         >
-          <span className="flex items-baseline uppercase tracking-[-0.055em]">
+          <span className="flex items-baseline tracking-[-0.055em]">
             <span className="font-script mr-[0.12em] text-[1.08em] font-normal normal-case tracking-[-0.06em] text-gold-dark">
               GP
             </span>
-            <span>{surname}</span>
+            <span>Gougoudis</span>
           </span>
           <span className="font-script mr-[0.08em] mt-[0.04em] self-end text-[0.42em] font-normal normal-case tracking-[0.08em] text-gold-dark">
             gioielli
