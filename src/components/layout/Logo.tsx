@@ -6,9 +6,11 @@ import { SanityImage } from "@/components/ui/SanityImage";
 
 export function Logo({
   className,
+  imageClassName,
   settings,
 }: {
   className?: string;
+  imageClassName?: string;
   variant?: "dark" | "light";
   settings?: SiteSettings;
 }) {
@@ -28,7 +30,8 @@ export function Logo({
         width={600}
         height={315}
         className={cn(
-          "h-12 w-auto object-contain md:h-14"
+          "h-12 w-auto object-contain md:h-14",
+          imageClassName
         )}
       />
     </Link>

@@ -80,7 +80,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
         </div>
 
         <div className="container-page relative hidden flex-col items-center py-4 lg:flex">
-          <Logo settings={settings} className="items-center" />
+          <Logo settings={settings} className="items-center" imageClassName="lg:h-20" />
 
           <div className="relative mt-3 flex w-full items-center justify-center border-t border-line/70 pt-3">
             <nav aria-label="Primary" className="flex items-center gap-7 text-sm">
