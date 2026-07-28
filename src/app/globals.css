@@ -7,7 +7,6 @@
 */
 
 @theme {
-  --color-ink: #0C0A09;
   --color-charcoal: #1C1917;
   --color-charcoal-2: #292524;
   --color-stone: #44403C;
@@ -31,7 +30,7 @@
   --color-accent-foreground: var(--color-cream);
   --color-border: var(--color-line);
 
-  --font-display: var(--font-cormorant), "Cormorant Garamond", "Times New Roman", serif;
+  --font-display: var(--font-cormorant), "Brilliant Cut Pro Regular, sans-serif";
   --font-sans: var(--font-montserrat), "Montserrat", system-ui, -apple-system, sans-serif;
 
   --shadow-soft: 0 1px 2px rgba(28, 25, 23, 0.04), 0 8px 24px -12px rgba(28, 25, 23, 0.12);
