@@ -13,11 +13,11 @@ import { loc, type Locale, type SiteSettings } from "@/sanity/types";
 const NAV_ITEMS = [
   { href: "/collections", labelKey: "collections" as const },
   { href: "/services", labelKey: "services" as const },
-  { href: "/wedding", labelKey: "wedding" as const },
   { href: "/about", labelKey: "about" as const },
-  { href: "/reviews", labelKey: "reviews" as const },
   { href: "/contact", labelKey: "contact" as const },
 ];
+
+const REMOVED_NAV_PATHS = new Set(["/wedding", "/reviews"]);
 
 export function Header({ settings }: { settings?: SiteSettings }) {
   const t = useTranslations("nav");
@@ -26,7 +26,9 @@ export function Header({ settings }: { settings?: SiteSettings }) {
   const [open, setOpen] = useState(false);
   const phoneTel = settings?.phoneTel || "";
   const navItems = settings?.navigation?.length
-    ? settings.navigation.map((item) => ({ href: item.href || "/", label: loc(item.label, locale) }))
+    ? settings.navigation
+        .map((item) => ({ href: item.href || "/", label: loc(item.label, locale) }))
+        .filter((item) => !REMOVED_NAV_PATHS.has(item.href.replace(/\/+$/, "")))
     : NAV_ITEMS.map((item) => ({ href: item.href, label: t(item.labelKey) }));
 
   useEffect(() => {

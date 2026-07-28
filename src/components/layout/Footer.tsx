@@ -72,26 +72,10 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
             </li>
             <li>
               <Link
-                href="/wedding"
-                className="text-stone hover:text-gold-dark smooth cursor-pointer"
-              >
-                {tNav("wedding")}
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/services"
                 className="text-stone hover:text-gold-dark smooth cursor-pointer"
               >
                 {tNav("services")}
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/reviews"
-                className="text-stone hover:text-gold-dark smooth cursor-pointer"
-              >
-                {tNav("reviews")}
               </Link>
             </li>
           </ul>
