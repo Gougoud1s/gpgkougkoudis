@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Check, MapPin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { ProductGallery } from "./ProductGallery";
 import { ProductCtas } from "./ProductCtas";
 import { ReservationForm } from "./ReservationForm";
 import { ProductCard } from "./ProductCard";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { mapsLink } from "@/lib/utils";
 import { loc, type Locale as L, type Product } from "@/sanity/types";
 
 export function ProductDetail({
@@ -17,17 +15,14 @@ export function ProductDetail({
   categorySlug,
   categoryTitle,
   phone,
-  address,
 }: {
   product: Product;
   categorySlug: string;
   categoryTitle: string;
   phone: string;
-  address: string;
 }) {
   const locale = useLocale() as L;
   const t = useTranslations("product");
-  const tc = useTranslations("common");
   const td = useTranslations("dynamic");
   const [showReservation, setShowReservation] = useState(false);
 
@@ -42,25 +37,6 @@ export function ProductDetail({
         <div>
           <Eyebrow>{categoryTitle}</Eyebrow>
           <h1 className="display-serif mt-4">{loc(product.title, locale)}</h1>
-
-          {product.sku && (
-            <p className="mt-6 text-xs uppercase tracking-[0.18em] text-stone-2">
-              {t("sku")}: {product.sku}
-            </p>
-          )}
-
-          {product.availableInStore && (
-            <a
-              href={mapsLink(address)}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex items-center gap-2 text-sm bg-gold-soft/40 px-3 py-2 rounded-full text-gold-dark cursor-pointer hover:bg-gold-soft/70 smooth"
-            >
-              <Check className="size-4" aria-hidden="true" />
-              {tc("availableInStore")} · {address}
-              <MapPin className="size-3.5 ml-1" aria-hidden="true" />
-            </a>
-          )}
 
           {product.description && (
             <p className="mt-6 text-stone leading-relaxed">

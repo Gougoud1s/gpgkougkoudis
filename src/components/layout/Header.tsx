@@ -72,7 +72,6 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             settings={settings}
             wordmark
             className="absolute left-1/2 top-1/2 items-center -translate-x-1/2 -translate-y-1/2"
-            wordmarkClassName="text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem]"
           />
 
           <div className="flex min-w-10 items-center justify-end gap-2">
@@ -86,7 +85,6 @@ export function Header({ settings }: { settings?: SiteSettings }) {
               settings={settings}
               wordmark
               className="items-center"
-              wordmarkClassName="text-[4.5rem]"
             />
             <div className="absolute right-0 flex items-center gap-2">
               <LocaleSwitcher className="mr-2" />
@@ -136,7 +134,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
           )}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-line">
-            <Logo settings={settings} wordmark wordmarkClassName="text-2xl" />
+            <Logo settings={settings} wordmark />
             <button
               type="button"
               onClick={() => setOpen(false)}

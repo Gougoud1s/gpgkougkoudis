@@ -51,14 +51,12 @@ export default async function ProductPage({
         categorySlug={category}
         categoryTitle={categoryTitle}
         phone={settings.phoneTel || ""}
-        address={loc(settings.address, locale)}
       />
 
       <ProductJsonLd
         name={title}
         image={data.images?.[0]?.asset?.url ?? ""}
         description={loc(data.description, locale)}
-        sku={data.sku}
         url={url}
         brand={loc(settings.brand, locale)}
       />

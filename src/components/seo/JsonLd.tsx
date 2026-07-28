@@ -44,14 +44,12 @@ export function ProductJsonLd({
   name,
   image,
   description,
-  sku,
   url,
   brand,
 }: {
   name: string;
   image: string;
   description: string;
-  sku?: string;
   url: string;
   brand: string;
 }) {
@@ -61,7 +59,6 @@ export function ProductJsonLd({
     name,
     image,
     description,
-    sku,
     brand: { "@type": "Brand", name: brand },
     url,
   };

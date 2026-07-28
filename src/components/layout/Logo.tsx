@@ -32,7 +32,7 @@ export function Logo({
       {wordmark ? (
         <span
           className={cn(
-            "inline-flex flex-col items-stretch whitespace-nowrap font-display font-medium leading-none text-charcoal",
+            "inline-flex flex-col items-stretch whitespace-nowrap font-display text-[1.8rem] font-medium leading-none text-charcoal sm:text-[2.2rem] md:text-[2.6rem] lg:text-[4.5rem]",
             wordmarkClassName
           )}
         >
