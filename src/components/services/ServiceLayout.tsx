@@ -31,10 +31,11 @@ export async function ServiceLayout({
     value: loc(item.value, locale),
   }));
   const formEnabled = service.form?.enabled !== false;
+  const hasHeroMedia = Boolean(service.heroVideo?.asset?.url || service.image?.asset?.url);
 
   return (
     <>
-      <section className="relative flex min-h-[62svh] items-center overflow-hidden border-b border-gold/15 bg-[#fbf7ef] py-24 md:min-h-[70svh] md:py-32">
+      <section className="relative flex min-h-[68svh] items-end overflow-hidden border-b border-gold/15 bg-[#fbf7ef] py-16 md:min-h-[70svh] md:items-center md:py-32">
         {service.heroVideo?.asset?.url ? (
           <video
             className="absolute inset-0 h-full w-full object-cover"
@@ -63,15 +64,20 @@ export async function ServiceLayout({
             />
           </div>
         ) : null}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#fbf7ef]/95 via-[#fbf7ef]/78 to-[#fbf7ef]/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#fbf7ef]/55 via-transparent to-white/10" />
+        {hasHeroMedia ? (
+          <>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-black/5 md:hidden" />
+            <div className="absolute inset-0 hidden bg-gradient-to-r from-[#fbf7ef]/95 via-[#fbf7ef]/78 to-[#fbf7ef]/25 md:block" />
+            <div className="absolute inset-0 hidden bg-gradient-to-t from-[#fbf7ef]/55 via-transparent to-white/10 md:block" />
+          </>
+        ) : null}
         <Container className="relative z-10">
           <Eyebrow>
             {t("service")}
           </Eyebrow>
-          <h1 className="mt-4 max-w-3xl text-balance text-charcoal">{title}</h1>
+          <h1 className={`mt-4 max-w-3xl text-balance ${hasHeroMedia ? "text-white md:text-charcoal" : "text-charcoal"}`}>{title}</h1>
           {tagline && (
-            <p className="mt-5 text-stone text-base md:text-xl max-w-2xl">
+            <p className={`mt-5 max-w-2xl text-base md:text-xl ${hasHeroMedia ? "text-white/90 md:text-stone" : "text-stone"}`}>
               {tagline}
             </p>
           )}
