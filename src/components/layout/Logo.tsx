@@ -21,6 +21,10 @@ export function Logo({
   const t = useTranslations("dynamic");
   const locale = useLocale() as Locale;
   const brand = loc(settings?.brand, locale) || "Γ.Π. ΓΚΟΥΓΚΟΥΔΗΣ";
+  const surname =
+    brand
+      .replace(/^(?:Γ\.?\s*Π\.?|G\.?\s*P\.?)\s*/iu, "")
+      .replace(/\s+gioielli$/iu, "") || "ΓΚΟΥΓΚΟΥΔΗΣ";
 
   return (
     <Link
@@ -34,11 +38,19 @@ export function Logo({
       {wordmark ? (
         <span
           className={cn(
-            "font-display whitespace-nowrap font-medium uppercase leading-none tracking-[-0.055em] text-charcoal",
+            "inline-flex flex-col items-stretch whitespace-nowrap font-display font-medium leading-none text-charcoal",
             wordmarkClassName
           )}
         >
-          {brand}
+          <span className="flex items-baseline uppercase tracking-[-0.055em]">
+            <span className="mr-[0.12em] text-[1.08em] font-normal italic tracking-[-0.11em] text-gold-dark">
+              GP
+            </span>
+            <span>{surname}</span>
+          </span>
+          <span className="mr-[0.08em] mt-[0.04em] self-end text-[0.34em] font-normal italic normal-case tracking-[0.26em] text-gold-dark">
+            gioielli
+          </span>
         </span>
       ) : (
         <SanityImage
