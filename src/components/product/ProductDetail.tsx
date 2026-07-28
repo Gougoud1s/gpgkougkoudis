@@ -36,7 +36,7 @@ export function ProductDetail({
 
         <div>
           <Eyebrow>{categoryTitle}</Eyebrow>
-          <h1 className="display-serif mt-4">{loc(product.title, locale)}</h1>
+          <h3 className="display-serif mt-4">{loc(product.title, locale)}</h3>
 
           {product.description && (
             <p className="mt-6 text-stone leading-relaxed">
