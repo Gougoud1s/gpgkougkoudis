@@ -47,8 +47,6 @@
     "filters": "Filters",
     "clearFilters": "Clear",
     "noResults": "No results found.",
-    "priceOnRequest": "Price on request",
-    "availableInStore": "Available in store",
     "shareOn": "Share",
     "follow": "Follow us"
   },
@@ -93,7 +91,6 @@
     "filterMaterial": "Material",
     "filterKarat": "Karat",
     "filterStone": "Stone",
-    "filterPrice": "Price",
     "filterOccasion": "Occasion",
     "materials": {
       "gold": "Gold",
@@ -110,7 +107,6 @@
     "stone": "Stone",
     "weight": "Weight",
     "dimensions": "Dimensions",
-    "sku": "SKU",
     "reserveForViewing": "Reserve for viewing",
     "callUs": "Call us",
     "relatedItems": "Related pieces"
@@ -228,7 +224,7 @@
     "appointmentSubject": "Wedding & Engagement appointment ({date} {time})",
     "attendeesMessage": "Attendees: {count}",
     "serviceRequestSubject": "{service} — enquiry",
-    "reservationSubject": "Viewing reservation — {product}{sku}",
+    "reservationSubject": "Viewing reservation — {product}",
     "occasions": {
       "wedding": "Wedding",
       "engagement": "Engagement",
@@ -264,10 +260,8 @@
     "sendMessage": "Send us a message",
     "replyTime": "We typically reply within one business day.",
     "featured": "Featured",
-    "priceAll": "All prices",
     "reviewsOnGoogle": "reviews on Google",
-    "productInterest": "Hello! I am interested in {product}{sku}.",
-    "productSku": " (SKU {sku})"
+    "productInterest": "Hello! I am interested in {product}."
     ,"notFoundTitle": "Page not found"
     ,"notFoundText": "The page you are looking for does not exist or has moved."
     ,"backHome": "Return home"

@@ -78,7 +78,6 @@ export function ProductDetail({
               </h3>
               <ReservationForm
                 productTitle={loc(product.title, locale)}
-                productSku={product.sku}
               />
             </div>
           )}

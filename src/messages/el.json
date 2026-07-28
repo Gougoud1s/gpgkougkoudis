@@ -47,8 +47,6 @@
     "filters": "Φίλτρα",
     "clearFilters": "Καθαρισμός",
     "noResults": "Δεν βρέθηκαν αποτελέσματα.",
-    "priceOnRequest": "Τιμή κατόπιν αιτήματος",
-    "availableInStore": "Διαθέσιμο στο κατάστημα",
     "shareOn": "Κοινοποίηση",
     "follow": "Ακολουθήστε μας"
   },
@@ -93,7 +91,6 @@
     "filterMaterial": "Υλικό",
     "filterKarat": "Καράτια",
     "filterStone": "Πέτρα",
-    "filterPrice": "Τιμή",
     "filterOccasion": "Περίσταση",
     "materials": {
       "gold": "Χρυσός",
@@ -110,7 +107,6 @@
     "stone": "Πέτρα",
     "weight": "Βάρος",
     "dimensions": "Διαστάσεις",
-    "sku": "Κωδικός",
     "reserveForViewing": "Κράτηση για δοκιμή",
     "callUs": "Καλέστε μας",
     "relatedItems": "Παρόμοια κομμάτια"
@@ -228,7 +224,7 @@
     "appointmentSubject": "Ραντεβού — Γάμος & Αρραβώνας ({date} {time})",
     "attendeesMessage": "Άτομα: {count}",
     "serviceRequestSubject": "{service} — αίτημα",
-    "reservationSubject": "Κράτηση για δοκιμή — {product}{sku}",
+    "reservationSubject": "Κράτηση για δοκιμή — {product}",
     "occasions": {
       "wedding": "Γάμος",
       "engagement": "Αρραβώνας",
@@ -264,10 +260,8 @@
     "sendMessage": "Στείλτε μας μήνυμα",
     "replyTime": "Συνήθως απαντάμε εντός μίας εργάσιμης ημέρας.",
     "featured": "Επιλεγμένα",
-    "priceAll": "Όλες",
     "reviewsOnGoogle": "κριτικές στο Google",
-    "productInterest": "Γεια σας! Ενδιαφέρομαι για το κόσμημα {product}{sku}.",
-    "productSku": " (κωδικός {sku})"
+    "productInterest": "Γεια σας! Ενδιαφέρομαι για το κόσμημα {product}."
     ,"notFoundTitle": "Δεν βρέθηκε η σελίδα"
     ,"notFoundText": "Η σελίδα που ψάχνετε δεν υπάρχει ή έχει μεταφερθεί."
     ,"backHome": "Επιστροφή στην αρχική"

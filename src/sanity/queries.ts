@@ -8,7 +8,7 @@ export const homepageQuery = groq`*[_type == "homepage"][0]{
   instagramProfile{..., profileImage{..., asset->{url, metadata{lqip, dimensions}}}},
   featuredCollections[]->{ _id, title, slug, image, description },
   featuredProducts[]->{
-    _id, title, slug, sku, price, priceOnRequest,
+    _id, title, slug,
     images[]{ ..., asset->{url, metadata{lqip, dimensions}} },
     category->{title, slug}
   },
@@ -23,7 +23,7 @@ export const allCategoriesQuery = groq`*[_type == "category"] | order(order asc)
 export const categoryBySlugQuery = groq`*[_type == "category" && slug.current == $slug][0]{
   _id, title, slug, image, description,
   "products": *[_type == "product" && references(^._id)] | order(publishedAt desc){
-    _id, title, slug, sku, material, karat, stone, occasion, price, priceOnRequest,
+    _id, title, slug, material, karat, stone, occasion,
     images[]{ ..., asset->{url, metadata{lqip, dimensions}} }
   }
 }`;
@@ -38,11 +38,12 @@ export const allCategorySlugsQuery = groq`*[_type == "category" && defined(slug.
 }`;
 
 export const productBySlugQuery = groq`*[_type == "product" && slug.current == $slug][0]{
-  ...,
+  _id, title, slug, material, karat, stone, occasion, weight, dimensions,
+  description, featured, publishedAt,
   category->{ _id, title, slug },
   images[]{ ..., asset->{url, metadata{lqip, dimensions}} },
   "related": *[_type == "product" && category._ref == ^.category._ref && _id != ^._id][0...4]{
-    _id, title, slug, price, priceOnRequest,
+    _id, title, slug,
     images[0]{ ..., asset->{url, metadata{lqip, dimensions}} }
   }
 }`;

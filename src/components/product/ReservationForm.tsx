@@ -20,11 +20,9 @@ type Values = z.infer<typeof schema>;
 
 export function ReservationForm({
   productTitle,
-  productSku,
   onSent,
 }: {
   productTitle: string;
-  productSku?: string;
   onSent?: () => void;
 }) {
   const t = useTranslations("forms");
@@ -50,7 +48,7 @@ export function ReservationForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...values,
-          subject: t("reservationSubject", { product: productTitle, sku: productSku ? ` (${productSku})` : "" }),
+          subject: t("reservationSubject", { product: productTitle }),
           formType: "reservation",
         }),
       });
