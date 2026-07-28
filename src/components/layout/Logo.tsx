@@ -36,12 +36,7 @@ export function Logo({
             wordmarkClassName
           )}
         >
-          <span className="flex items-baseline tracking-[-0.055em]">
-            <span className="font-script mr-[0.12em] text-[1.08em] font-normal normal-case tracking-[-0.06em] text-gold-dark">
-              GP
-            </span>
-            <span>Gougoudis</span>
-          </span>
+          <span className="tracking-[-0.055em]">Gougoudis</span>
           <span className="font-script mt-[0.04em] translate-x-[0.45em] self-end text-[0.42em] font-normal normal-case tracking-[0.08em] text-gold-dark">
             gioielli
           </span>
