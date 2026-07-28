@@ -56,8 +56,8 @@
     "heroSubtitle": "Συλλογές κοσμημάτων από χρυσό 9, 14 και 18 καρατίων με πολύτιμες και ημιπολύτιμες πέτρες, για κάθε σημαντική στιγμή της ζωής σας.",
     "heroCtaPrimary": "Δείτε τις συλλογές",
     "heroCtaSecondary": "Επικοινωνία",
-    "trustGoogleRating": "4.9 αστέρια στο Google",
-    "trustReviewCount": "123 κριτικές",
+    "trustGoogleRating": "αστέρια στο Google",
+    "trustReviewCount": "κριτικές",
     "trustLocation": "Πετρούπολη, Αθήνα",
     "featuredCollectionsEyebrow": "Συλλογές",
     "featuredCollectionsTitle": "Επιλεγμένα κομμάτια",
@@ -71,7 +71,7 @@
     "storyCta": "Μάθετε περισσότερα",
     "reviewsEyebrow": "Κριτικές",
     "reviewsTitle": "Αυτό που λένε για εμάς",
-    "reviewsSubtitle": "4.9 αστέρια σε 123 κριτικές στο Google.",
+    "reviewsSubtitle": "Αξιολογήσεις πελατών στο Google.",
     "visitEyebrow": "Επισκεφθείτε μας",
     "visitTitle": "Σας περιμένουμε στην Πετρούπολη",
     "visitDescription": "Ελάτε στο κατάστημά μας για να δείτε από κοντά τη συλλογή μας. Σας υποδεχόμαστε με χαρά και χωρίς υποχρέωση."
@@ -160,7 +160,7 @@
   },
   "reviews": {
     "title": "Κριτικές πελατών",
-    "subtitle": "4.9 αστέρια από 123 κριτικές στο Google.",
+    "subtitle": "Αξιολογήσεις πελατών στο Google.",
     "leaveReview": "Αφήστε μια κριτική στο Google"
   },
   "contact": {

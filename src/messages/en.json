@@ -56,8 +56,8 @@
     "heroSubtitle": "Curated collections of 9, 14 and 18 karat gold jewelry with precious and semi-precious stones — for every meaningful moment.",
     "heroCtaPrimary": "Explore collections",
     "heroCtaSecondary": "Contact us",
-    "trustGoogleRating": "4.9 stars on Google",
-    "trustReviewCount": "123 reviews",
+    "trustGoogleRating": "stars on Google",
+    "trustReviewCount": "reviews",
     "trustLocation": "Petroupoli, Athens",
     "featuredCollectionsEyebrow": "Collections",
     "featuredCollectionsTitle": "Featured pieces",
@@ -71,7 +71,7 @@
     "storyCta": "Learn more",
     "reviewsEyebrow": "Reviews",
     "reviewsTitle": "What our clients say",
-    "reviewsSubtitle": "4.9 stars from 123 reviews on Google.",
+    "reviewsSubtitle": "Customer ratings on Google.",
     "visitEyebrow": "Visit us",
     "visitTitle": "We look forward to welcoming you in Petroupoli",
     "visitDescription": "Come to the store to see our collection in person. We welcome you with a smile and no obligation."
@@ -160,7 +160,7 @@
   },
   "reviews": {
     "title": "Client reviews",
-    "subtitle": "4.9 stars from 123 reviews on Google.",
+    "subtitle": "Customer ratings on Google.",
     "leaveReview": "Leave a review on Google"
   },
   "contact": {

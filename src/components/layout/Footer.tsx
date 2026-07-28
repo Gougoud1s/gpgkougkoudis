@@ -28,13 +28,13 @@ export function Footer({ settings }: { settings?: SiteSettings }) {
           <p className="text-sm leading-relaxed text-stone max-w-sm">
             {loc(settings?.footerDescription, locale) || loc(settings?.tagline, locale)}
           </p>
-          <div className="flex items-center gap-2 text-sm">
+          {rating != null && reviewCount != null && <div className="flex items-center gap-2 text-sm">
             <Star className="size-4 fill-gold text-gold" aria-hidden="true" />
             <span>
               <strong className="text-charcoal">{rating}</strong> ·{" "}
               {reviewCount} reviews on Google
             </span>
-          </div>
+          </div>}
           <div className="flex gap-3">
             <a
               href={social.facebook}

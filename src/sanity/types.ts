@@ -110,6 +110,14 @@ export type Faq = {
 };
 
 export type Homepage = {
+  showTrustBar?: boolean;
+  showFeaturedCollections?: boolean;
+  showFeaturedProducts?: boolean;
+  showFeaturedServices?: boolean;
+  showInstagram?: boolean;
+  showStory?: boolean;
+  showReviews?: boolean;
+  showVisit?: boolean;
   heroEyebrow?: LocalizedString;
   heroTitle?: LocalizedString;
   heroSubtitle?: LocalizedText;

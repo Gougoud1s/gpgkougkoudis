@@ -10,7 +10,7 @@ import { Eyebrow } from "@/components/ui/Eyebrow";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { loc, type Homepage, type Locale as L, type SiteSettings } from "@/sanity/types";
 
-export function Hero({ homepage, settings }: { homepage: Homepage; settings?: SiteSettings }) {
+export function Hero({ homepage, settings, showTrustBar = true }: { homepage: Homepage; settings?: SiteSettings; showTrustBar?: boolean }) {
   const t = useTranslations("home");
   const locale = useLocale() as L;
 
@@ -25,13 +25,13 @@ export function Hero({ homepage, settings }: { homepage: Homepage; settings?: Si
         <div className="max-w-2xl">
           <span className="absolute left-5 top-10 h-px w-20 bg-gold/60 md:left-8 lg:top-16" aria-hidden="true" />
           <span className="absolute -left-20 top-1/2 size-64 rounded-full border border-gold/10" aria-hidden="true" />
-          <motion.div
+          {showTrustBar && <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <Eyebrow>{eyebrow}</Eyebrow>
-          </motion.div>
+          </motion.div>}
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
