@@ -57,45 +57,31 @@ export function Header({ settings }: { settings?: SiteSettings }) {
             : "bg-cream/80 backdrop-blur-sm"
         )}
       >
-        <div className="container-page flex items-center justify-between gap-6 pb-3 pt-10 lg:hidden">
-          <Logo settings={settings} imageClassName="h-16 md:h-18" />
+        <div className="container-page relative flex min-h-24 items-center justify-between py-4 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="cursor-pointer p-2 -ml-2 text-charcoal smooth"
+            aria-label={t("menu")}
+            aria-expanded={open}
+          >
+            <Menu className="size-6" aria-hidden="true" />
+          </button>
 
-          <div className="flex items-center gap-2">
-            <LocaleSwitcher className="hidden md:flex mr-2" />
-            <a href={telLink(phoneTel)} className="hidden md:inline-flex" data-event="header-call">
-              <Button variant="ghost" size="sm" aria-label={t("callUs")}>
-                <Phone className="size-4" aria-hidden="true" />
-              </Button>
-            </a>
-            <button
-              type="button"
-              onClick={() => setOpen(true)}
-              className="cursor-pointer p-2 -mr-2 text-charcoal smooth"
-              aria-label={t("menu")}
-              aria-expanded={open}
-            >
-              <Menu className="size-6" aria-hidden="true" />
-            </button>
+          <Logo
+            settings={settings}
+            className="absolute left-1/2 top-1/2 items-center -translate-x-1/2 -translate-y-1/2"
+            imageClassName="h-16 md:h-18"
+          />
+
+          <div className="flex min-w-10 items-center justify-end gap-2">
+            <LocaleSwitcher className="hidden md:flex" />
           </div>
         </div>
 
-        <div className="container-page relative hidden flex-col items-center pb-4 pt-10 lg:flex">
-          <Logo settings={settings} className="items-center" imageClassName="lg:h-24" />
-
-          <div className="relative mt-3 flex w-full items-center justify-center border-t border-line/70 pt-3">
-            <nav aria-label="Primary" className="flex items-center gap-7 text-sm">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-charcoal/80 hover:text-charcoal smooth cursor-pointer relative group whitespace-nowrap"
-                >
-                  {item.label}
-                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-gold scale-x-0 group-hover:scale-x-100 origin-left smooth" />
-                </Link>
-              ))}
-            </nav>
-
+        <div className="container-page relative hidden flex-col items-center pb-4 pt-5 lg:flex">
+          <div className="relative flex min-h-24 w-full items-center justify-center">
+            <Logo settings={settings} className="items-center" imageClassName="lg:h-24" />
             <div className="absolute right-0 flex items-center gap-2">
               <LocaleSwitcher className="mr-2" />
               <a href={telLink(phoneTel)} className="inline-flex" data-event="header-call">
@@ -106,6 +92,19 @@ export function Header({ settings }: { settings?: SiteSettings }) {
               </a>
             </div>
           </div>
+
+          <nav aria-label="Primary" className="mt-2 flex items-center gap-7 text-sm">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-charcoal/80 hover:text-charcoal smooth cursor-pointer relative group whitespace-nowrap"
+              >
+                {item.label}
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-gold scale-x-0 group-hover:scale-x-100 origin-left smooth" />
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
