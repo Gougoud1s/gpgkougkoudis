@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant, Montserrat } from "next/font/google";
+import { Cormorant, Montserrat, Pinyon_Script } from "next/font/google";
 import "./globals.css";
 import { getSiteSettings } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
@@ -20,6 +20,15 @@ const montserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
   variable: "--font-montserrat",
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+// A licensed calligraphic face with the same elegant, high-contrast character
+// as classic Parisian jewelry wordmarks.
+const pinyonScript = Pinyon_Script({
+  subsets: ["latin"],
+  variable: "--font-pinyon-script",
+  weight: "400",
   display: "swap",
 });
 
@@ -46,7 +55,7 @@ export default function RootLayout({
       lang="el"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${cormorant.variable} ${montserrat.variable}`}
+      className={`${cormorant.variable} ${montserrat.variable} ${pinyonScript.variable}`}
     >
       <body className="min-h-screen flex flex-col bg-cream text-ink">
         {children}

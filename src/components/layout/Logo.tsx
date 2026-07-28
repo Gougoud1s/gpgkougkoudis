@@ -43,12 +43,12 @@ export function Logo({
           )}
         >
           <span className="flex items-baseline uppercase tracking-[-0.055em]">
-            <span className="mr-[0.12em] text-[1.08em] font-normal italic tracking-[-0.11em] text-gold-dark">
+            <span className="font-script mr-[0.12em] text-[1.08em] font-normal normal-case tracking-[-0.06em] text-gold-dark">
               GP
             </span>
             <span>{surname}</span>
           </span>
-          <span className="mr-[0.08em] mt-[0.04em] self-end text-[0.34em] font-normal italic normal-case tracking-[0.26em] text-gold-dark">
+          <span className="font-script mr-[0.08em] mt-[0.04em] self-end text-[0.42em] font-normal normal-case tracking-[0.08em] text-gold-dark">
             gioielli
           </span>
         </span>
