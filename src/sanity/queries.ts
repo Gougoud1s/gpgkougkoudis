@@ -55,6 +55,8 @@ export const allServicesQuery = groq`*[_type == "service"] | order(order asc){
 export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   ...,
   image{..., asset->{url, metadata{lqip, dimensions}}},
+  heroVideo{..., asset->{url, mimeType}},
+  heroVideoPoster{..., asset->{url, metadata{lqip, dimensions}}},
   gallery[]{
     ...,
     asset->{url, mimeType, metadata{lqip, dimensions}},

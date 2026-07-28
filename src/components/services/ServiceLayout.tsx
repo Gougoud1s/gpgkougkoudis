@@ -34,24 +34,42 @@ export async function ServiceLayout({
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-gold/15 bg-[#fbf7ef] pt-24 pb-16 md:pt-32 md:pb-24">
-        {service.image && (
-          <div className="absolute inset-y-0 right-0 hidden w-1/2 opacity-35 lg:block">
+      <section className="relative flex min-h-[62svh] items-center overflow-hidden border-b border-gold/15 bg-[#fbf7ef] py-24 md:min-h-[70svh] md:py-32">
+        {service.heroVideo?.asset?.url ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={service.heroVideoPoster?.asset?.url || service.image?.asset?.url}
+            aria-hidden="true"
+          >
+            <source
+              src={service.heroVideo.asset.url}
+              type={service.heroVideo.asset.mimeType || "video/mp4"}
+            />
+          </video>
+        ) : service.image ? (
+          <div className="absolute inset-0">
             <SanityImage
               image={service.image}
               fill
               priority
               sizes="100vw"
               alt={title}
+              className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#fbf7ef] via-[#fbf7ef]/70 to-transparent" />
           </div>
-        )}
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#fbf7ef]/95 via-[#fbf7ef]/78 to-[#fbf7ef]/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#fbf7ef]/55 via-transparent to-white/10" />
         <Container className="relative z-10">
           <Eyebrow>
             {t("service")}
           </Eyebrow>
-          <h1 className="mt-4 text-charcoal text-balance">{title}</h1>
+          <h1 className="mt-4 max-w-3xl text-balance text-charcoal">{title}</h1>
           {tagline && (
             <p className="mt-5 text-stone text-base md:text-xl max-w-2xl">
               {tagline}

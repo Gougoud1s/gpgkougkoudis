@@ -69,6 +69,8 @@ export type Service = {
   slug: SanitySlug;
   icon?: string;
   image?: SanityImage;
+  heroVideo?: SanityVideo;
+  heroVideoPoster?: SanityImage;
   shortDescription?: LocalizedText;
   body?: { el?: unknown[]; en?: unknown[] };
   steps?: Array<{

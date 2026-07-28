@@ -26,12 +26,26 @@ export const service = defineType({
     }),
     defineField({
       name: "image",
-      title: "Κεντρική εικόνα",
+      title: "Κεντρική εικόνα / Hero fallback",
       type: "image",
       options: { hotspot: true },
       fields: [
         defineField({ name: "alt", type: "string", title: "Alt text" }),
       ],
+    }),
+    defineField({
+      name: "heroVideo",
+      title: "Hero background video",
+      description: "MP4 ή WebM. Αναπαράγεται αυτόματα χωρίς ήχο, σε επανάληψη. Αν είναι κενό, χρησιμοποιείται η κεντρική εικόνα.",
+      type: "file",
+      options: { accept: "video/mp4,video/webm" },
+    }),
+    defineField({
+      name: "heroVideoPoster",
+      title: "Hero video poster (προαιρετικό)",
+      description: "Εμφανίζεται όσο φορτώνει το βίντεο.",
+      type: "image",
+      options: { hotspot: true },
     }),
     localizedText("shortDescription", "Σύντομη περιγραφή"),
     localizedRichText("body", "Πλήρες κείμενο"),
