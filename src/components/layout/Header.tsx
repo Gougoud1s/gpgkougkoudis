@@ -70,8 +70,9 @@ export function Header({ settings }: { settings?: SiteSettings }) {
 
           <Logo
             settings={settings}
+            wordmark
             className="absolute left-1/2 top-1/2 items-center -translate-x-1/2 -translate-y-1/2"
-            imageClassName="h-16 md:h-18"
+            wordmarkClassName="text-[1.8rem] sm:text-[2.2rem] md:text-[2.6rem]"
           />
 
           <div className="flex min-w-10 items-center justify-end gap-2">
@@ -81,7 +82,12 @@ export function Header({ settings }: { settings?: SiteSettings }) {
 
         <div className="container-page relative hidden flex-col items-center pb-4 pt-5 lg:flex">
           <div className="relative flex min-h-24 w-full items-center justify-center">
-            <Logo settings={settings} className="items-center" imageClassName="lg:h-24" />
+            <Logo
+              settings={settings}
+              wordmark
+              className="items-center"
+              wordmarkClassName="text-[4.5rem]"
+            />
             <div className="absolute right-0 flex items-center gap-2">
               <LocaleSwitcher className="mr-2" />
               <a href={telLink(phoneTel)} className="inline-flex" data-event="header-call">
@@ -130,7 +136,7 @@ export function Header({ settings }: { settings?: SiteSettings }) {
           )}
         >
           <div className="flex items-center justify-between px-5 py-4 border-b border-line">
-            <Logo settings={settings} />
+            <Logo settings={settings} wordmark wordmarkClassName="text-2xl" />
             <button
               type="button"
               onClick={() => setOpen(false)}
