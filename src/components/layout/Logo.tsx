@@ -42,7 +42,7 @@ export function Logo({
             </span>
             <span>Gougoudis</span>
           </span>
-          <span className="font-script mr-[0.08em] mt-[0.04em] self-end text-[0.42em] font-normal normal-case tracking-[0.08em] text-gold-dark">
+          <span className="font-script mt-[0.04em] translate-x-[0.45em] self-end text-[0.42em] font-normal normal-case tracking-[0.08em] text-gold-dark">
             gioielli
           </span>
         </span>
