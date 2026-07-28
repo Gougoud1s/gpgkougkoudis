@@ -4,6 +4,7 @@ export type LocalizedString = { el?: string; en?: string };
 export type LocalizedText = { el?: string; en?: string };
 
 export type SanityImage = {
+  _type?: "image";
   _key?: string;
   alt?: string;
   asset?: {
@@ -14,6 +15,18 @@ export type SanityImage = {
       dimensions?: { width: number; height: number };
     };
   };
+};
+
+export type SanityVideo = {
+  _type: "file";
+  _key?: string;
+  asset?: {
+    _ref?: string;
+    url?: string;
+    mimeType?: string;
+  };
+  caption?: LocalizedString;
+  poster?: SanityImage;
 };
 
 export type SanitySlug = { current: string };
@@ -76,7 +89,7 @@ export type Service = {
     showDeadline?: boolean;
     showOccasion?: boolean;
   };
-  gallery?: SanityImage[];
+  gallery?: Array<SanityImage | SanityVideo>;
   featured?: boolean;
 };
 

@@ -80,7 +80,8 @@ export const service = defineType({
     }),
     defineField({
       name: "gallery",
-      title: "Γκαλερί έργων",
+      title: "Γκαλερί φωτογραφιών & βίντεο",
+      description: "Προσθέστε φωτογραφίες ή βίντεο MP4/WebM. Η σειρά εδώ είναι η σειρά εμφάνισης στη σελίδα.",
       type: "array",
       of: [
         {
@@ -88,6 +89,20 @@ export const service = defineType({
           options: { hotspot: true },
           fields: [
             defineField({ name: "alt", type: "string", title: "Alt text" }),
+          ],
+        },
+        {
+          type: "file",
+          title: "Βίντεο",
+          options: { accept: "video/mp4,video/webm" },
+          fields: [
+            localizedString("caption", "Λεζάντα βίντεο"),
+            defineField({
+              name: "poster",
+              type: "image",
+              title: "Εικόνα προεπισκόπησης (προαιρετική)",
+              options: { hotspot: true },
+            }),
           ],
         },
       ],

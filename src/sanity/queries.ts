@@ -55,7 +55,11 @@ export const allServicesQuery = groq`*[_type == "service"] | order(order asc){
 export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $slug][0]{
   ...,
   image{..., asset->{url, metadata{lqip, dimensions}}},
-  gallery[]{..., asset->{url, metadata{lqip, dimensions}}}
+  gallery[]{
+    ...,
+    asset->{url, mimeType, metadata{lqip, dimensions}},
+    poster{..., asset->{url, metadata{lqip, dimensions}}}
+  }
 }`;
 
 export const allTestimonialsQuery = groq`*[_type == "testimonial"] | order(publishedAt desc){

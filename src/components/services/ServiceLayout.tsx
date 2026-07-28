@@ -146,17 +146,34 @@ export async function ServiceLayout({
               {t("workshopGallery")}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-              {service.gallery.map((img, idx) => (
+              {service.gallery.map((media, idx) => (
                 <div
-                  key={idx}
+                  key={media._key || `${media._type || "image"}-${idx}`}
                   className="relative aspect-square bg-cream-2 overflow-hidden rounded-sm"
                 >
-                  <SanityImage
-                    image={img}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 50vw"
-                    alt=""
-                  />
+                  {media._type === "file" ? (
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      poster={media.poster?.asset?.url}
+                      aria-label={loc(media.caption, locale) || title}
+                    >
+                      {media.asset?.url && (
+                        <source src={media.asset.url} type={media.asset.mimeType || "video/mp4"} />
+                      )}
+                    </video>
+                  ) : (
+                    <SanityImage
+                      image={media}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 50vw"
+                      alt={media.alt || title}
+                    />
+                  )}
                 </div>
               ))}
             </div>
