@@ -7,7 +7,7 @@ import { localizedMetadata } from "@/lib/seo";
 
 export async function contentPageMetadata(route: string, locale: Locale) {
   const page = await getContentPage(route);
-  if (!page) return { title: "Not found" };
+  if (!page || page.enabled === false) return { title: "Not found" };
   return localizedMetadata({
     locale,
     path: route,
@@ -20,6 +20,6 @@ export async function contentPageMetadata(route: string, locale: Locale) {
 export async function renderContentPage(route: string, locale: Locale) {
   setRequestLocale(locale);
   const page = await getContentPage(route);
-  if (!page) notFound();
+  if (!page || page.enabled === false) notFound();
   return <ContentPageView page={page} locale={locale} />;
 }

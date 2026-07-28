@@ -8,7 +8,7 @@ import { CookieBanner } from "@/components/layout/CookieBanner";
 import { Analytics } from "@/components/layout/Analytics";
 import { LocalBusinessJsonLd } from "@/components/seo/JsonLd";
 import { routing, type Locale } from "@/i18n/routing";
-import { getHomepage, getSiteSettings } from "@/sanity/fetch";
+import { getContentPageVisibility, getHomepage, getSiteSettings } from "@/sanity/fetch";
 import { loc } from "@/sanity/types";
 
 // Published Studio edits are intentionally read on every request.
@@ -69,11 +69,15 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   setRequestLocale(locale);
-  const [messages, settings] = await Promise.all([getMessages(), getSiteSettings()]);
+  const [messages, settings, contentPages] = await Promise.all([
+    getMessages(),
+    getSiteSettings(),
+    getContentPageVisibility(),
+  ]);
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <Header settings={settings} />
+      <Header settings={settings} contentPages={contentPages} />
       <main id="main" className="flex-1">
         {children}
       </main>

@@ -8,7 +8,7 @@ import { Logo } from "./Logo";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { Button } from "@/components/ui/Button";
 import { cn, telLink } from "@/lib/utils";
-import { loc, type Locale, type SiteSettings } from "@/sanity/types";
+import { loc, type ContentPageVisibility, type Locale, type SiteSettings } from "@/sanity/types";
 
 const NAV_ITEMS = [
   { href: "/collections", labelKey: "collections" as const },
@@ -19,17 +19,39 @@ const NAV_ITEMS = [
 
 const REMOVED_NAV_PATHS = new Set(["/wedding", "/reviews"]);
 
-export function Header({ settings }: { settings?: SiteSettings }) {
+export function Header({
+  settings,
+  contentPages = [],
+}: {
+  settings?: SiteSettings;
+  contentPages?: ContentPageVisibility[];
+}) {
   const t = useTranslations("nav");
   const locale = useLocale() as Locale;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const phoneTel = settings?.phoneTel || "";
-  const navItems = settings?.navigation?.length
+  const pageByRoute = new Map(contentPages.map((page) => [`/${page.route.replace(/^\/+|\/+$/g, "")}`, page]));
+  const configuredItems = settings?.navigation?.length
     ? settings.navigation
         .map((item) => ({ href: item.href || "/", label: loc(item.label, locale) }))
         .filter((item) => !REMOVED_NAV_PATHS.has(item.href.replace(/\/+$/, "")))
     : NAV_ITEMS.map((item) => ({ href: item.href, label: t(item.labelKey) }));
+  const navItems = configuredItems.filter((item) => {
+    const page = pageByRoute.get(item.href.replace(/\/+$/, ""));
+    return !page || (page.enabled !== false && page.showInNavigation !== false);
+  });
+
+  for (const page of contentPages) {
+    const href = `/${page.route.replace(/^\/+|\/+$/g, "")}`;
+    if (
+      page.enabled !== false &&
+      page.showInNavigation === true &&
+      !navItems.some((item) => item.href.replace(/\/+$/, "") === href)
+    ) {
+      navItems.push({ href, label: loc(page.title, locale) });
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);

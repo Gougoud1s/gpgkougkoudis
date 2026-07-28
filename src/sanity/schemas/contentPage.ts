@@ -7,6 +7,28 @@ export const contentPage = defineType({
   type: "document",
   fields: [
     defineField({ name: "route", title: "Διαδρομή", type: "string", validation: (Rule) => Rule.required() }),
+    defineField({
+      name: "enabled",
+      title: "Page enabled / Ενεργή σελίδα",
+      description: "Όταν είναι No, η σελίδα επιστρέφει 404 και δεν εμφανίζεται σε πλοήγηση ή sitemap.",
+      type: "boolean",
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "showInNavigation",
+      title: "Show in navigation / Εμφάνιση στην πλοήγηση",
+      type: "boolean",
+      initialValue: false,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "showInSitemap",
+      title: "Show in sitemap / Εμφάνιση στο sitemap",
+      type: "boolean",
+      initialValue: true,
+      validation: (Rule) => Rule.required(),
+    }),
     localizedString("eyebrow", "Επάνω τίτλος"),
     localizedString("title", "Τίτλος", { required: true }),
     localizedText("subtitle", "Υπότιτλος"),

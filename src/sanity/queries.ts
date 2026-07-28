@@ -82,4 +82,8 @@ export const contentPageByRouteQuery = groq`*[_type == "contentPage" && route ==
   }
 }`;
 
+export const contentPageVisibilityQuery = groq`*[_type == "contentPage" && defined(route)]{
+  _id, route, title, enabled, showInNavigation, showInSitemap
+}`;
+
 export const allUiTextQuery = groq`*[_type == "uiText"]{key, value}`;

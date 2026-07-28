@@ -10,6 +10,7 @@ import {
   serviceBySlugQuery,
   siteSettingsQuery,
   contentPageByRouteQuery,
+  contentPageVisibilityQuery,
   allUiTextQuery,
 } from "./queries";
 import type {
@@ -22,6 +23,7 @@ import type {
   Testimonial,
   ContentPage,
   UiTextRecord,
+  ContentPageVisibility,
 } from "./types";
 
 const HAS_SANITY = Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
@@ -95,6 +97,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 export async function getContentPage(route: string): Promise<ContentPage | null> {
   return safeFetch<ContentPage>(contentPageByRouteQuery, { route });
+}
+
+export async function getContentPageVisibility(): Promise<ContentPageVisibility[]> {
+  return (await safeFetch<ContentPageVisibility[]>(contentPageVisibilityQuery)) || [];
 }
 
 export async function getUiText(): Promise<UiTextRecord[]> {

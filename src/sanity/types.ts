@@ -192,6 +192,9 @@ export type ContentPageSection = {
 export type ContentPage = {
   _id: string;
   route: string;
+  enabled?: boolean;
+  showInNavigation?: boolean;
+  showInSitemap?: boolean;
   eyebrow?: LocalizedString;
   title: LocalizedString;
   subtitle?: LocalizedText;
@@ -202,6 +205,11 @@ export type ContentPage = {
   seoDescription?: LocalizedText;
   updatedLabel?: string;
 };
+
+export type ContentPageVisibility = Pick<
+  ContentPage,
+  "_id" | "route" | "title" | "enabled" | "showInNavigation" | "showInSitemap"
+>;
 
 export type UiTextRecord = {
   key: string;

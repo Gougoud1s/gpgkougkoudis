@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export const dynamic = "force-dynamic";
 import { routing } from "@/i18n/routing";
-import { getCategories, getServices, getSiteSettings } from "@/sanity/fetch";
+import { getCategories, getContentPageVisibility, getServices, getSiteSettings } from "@/sanity/fetch";
 import { client } from "@/sanity/client";
 import { allProductSlugsQuery } from "@/sanity/queries";
 
@@ -10,17 +10,16 @@ const STATIC_PATHS = [
   "",
   "/collections",
   "/services",
-  "/about",
   "/contact",
   "/faq",
-  "/privacy",
-  "/cookies",
-  "/terms",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
-  const settings = await getSiteSettings();
+  const [settings, contentPages] = await Promise.all([
+    getSiteSettings(),
+    getContentPageVisibility(),
+  ]);
   const siteUrl = settings.siteUrl || "http://localhost:3000";
   const now = new Date();
 
@@ -31,6 +30,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: now,
         changeFrequency: "monthly",
         priority: path === "" ? 1.0 : 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            routing.locales.map((l) => [l, `${siteUrl}/${l}${path}`])
+          ),
+        },
+      });
+    }
+  }
+
+  for (const locale of routing.locales) {
+    for (const page of contentPages) {
+      if (page.enabled === false || page.showInSitemap === false) continue;
+      const path = `/${page.route.replace(/^\/+|\/+$/g, "")}`;
+      entries.push({
+        url: `${siteUrl}/${locale}${path}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.8,
         alternates: {
           languages: Object.fromEntries(
             routing.locales.map((l) => [l, `${siteUrl}/${l}${path}`])
